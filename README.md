@@ -19,8 +19,14 @@ Color
 ln -sf ~/workspace/dotfiles/color/dircolors/dircolors.ansi-universal ~/.dir_colors
 ```
 
-lsd
+### lsd
 
 ```bash
 ln -sf ~/workspace/dotfiles/color/lsd/solarized_light.yaml ~/.config/lsd/colors.yaml
+```
+
+### oh-my-bash
+
+```bash
+ln -sf ~/workspace/dotfiles/color/oh-my-bash/tonotdo.theme.sh ~/.oh-my-bash/custom/themes/tonotdo/tonotdo.theme.sh
 ```
