@@ -1,6 +1,13 @@
 dotfiles
 ========
 
+Bin
+---
+
+```bash
+ln -sf ~/workspace/dotfiles/bin/hex2xterm.py ~/.local/bin/
+```
+
 Config
 ------
 
