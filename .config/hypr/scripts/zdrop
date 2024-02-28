@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+
+print_help() {
+  echo "Usage: zdrop [options] <command> <class>"
+  echo ""
+  echo "Command:"
+  echo "          The usual command you would run to start the desired program"
+  echo "Class:"
+  echo "          Check 'class' field in 'hyprctl clients'"
+  echo "Options:"
+  echo "  -b, --background"
+  echo "          Changes the default behaviour: if the specified program is"
+  echo "          not running, launch it in the background instead of foreground."
+  echo "          Thereafter 'zdrop -b' will work the same as without this flag."
+  echo ""
+  echo "  -v, --verbose"
+  echo "          Show notifications regarding the matching process."
+  echo "          Use this to figure out why running programs are not matched."
+  echo ""
+  echo "  -h, --help"
+  echo "          Print this message"
+  echo ""
+  echo "  -V, --version"
+  echo "          Print version"
+  echo ""
+  echo "Multiple instances of the same program can be run concurrently, if"
+  echo "different class names are assigned to each instance."
+  echo ""
+  echo "Example bindings:"
+  echo "          bind = CTRL, grave, exec, ~/.config/hypr/scripts/zdrop 'kitty --class dropdown_terminal' dropdown_terminal"
+  echo "          bind = , Scroll_Lock, exec, ~/.config/hypr/scripts/zdrop telegram-desktop org.telegram.desktop"
+  echo "          bind = , Pause, exec, ~/.config/hypr/scripts/zdrop brave Brave-browser"
+  echo "Author:"
+  echo "          Zlie Tapki"
+}
+
+function join_by { local IFS="$1"; shift; echo "$*"; }
+
+print_version() {
+  echo "zdrop version: 0.1.0"
+}
+
+notify() {
+  hyprctl notify -1 5000 "rgb(6c71c4)" "$@" 1> /dev/null
+  echo "$@"
+}
+
+if ! command -v jq &> /dev/null; then
+    notify "jq not found"
+    exit 1
+fi
+
+if ! command -v hyprctl &> /dev/null; then
+    notify "hyprctl not found"
+    exit 1
+fi
+
+BACKGROUND="hyprctl dispatch -- exec "
+VERBOSE=false
+
+while true; do
+  case "$1" in
+  -h | --help)
+    print_help
+    exit
+    ;;
+  -V | --version)
+    print_version
+    exit
+    ;;
+  -b | --background)
+    BACKGROUND="hyprctl dispatch -- exec [workspace special:hdrop silent] "
+    shift
+    ;;
+  -v | --verbose)
+    VERBOSE=true
+    shift
+    ;;
+  *)
+    break
+    ;;
+  esac
+done
+
+CMD="$1"
+CLASS="$2"
+if [[ -z $CMD || -z $CLASS ]]; then
+  notify "Missing Argument" "Run 'zdrop -h' for more information"
+  exit
+fi
+
+WSP="$(hyprctl activeworkspace -j | jq --raw-output .id)" || notify "Error executing 'hyprctl' or 'jq'"
+
+# show app if hidden 
+windows_hidden=$(hyprctl clients -j | jq --raw-output ".[] | select(.class == \"$CLASS\" and .workspace.id != $WSP) | .address")
+if [[ $windows_hidden ]]; then
+  for win in $windows_hidden; do
+    batch+=("dispatch movetoworkspace $WSP,address:$win")
+  done
+  hyprctl --batch $(join_by ';' "${batch[@]}") || notify "Error moving '$CLASS' to '$WSP'"
+  $VERBOSE && notify "Class '$CLASS' moved to '$WSP'"
+  exit 0
+fi
+
+# hide app if shown 
+windows_shown=$(hyprctl clients -j | jq --raw-output ".[] | select(.class == \"$CLASS\" and .workspace.id == $WSP) | .address")
+if [[ $windows_shown ]]; then
+  for win in $windows_shown; do
+      batch+=("dispatch movetoworkspacesilent special:hdrop,address:$win")
+  done
+  hyprctl --batch $(join_by ';' "${batch[@]}") || notify "Error moving '$CLASS' to 'special:hdrop'"
+  $VERBOSE && notify "Class '$CLASS' moved to 'special:hdrop'"
+  exit 0
+fi
+
+# run app
+$BACKGROUND $CMD || notify "Error executing given command" "$CMD"
+$VERBOSE && notify "Class '$CLASS' not found. Execute '$CMD'"

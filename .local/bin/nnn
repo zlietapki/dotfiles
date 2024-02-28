@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+source ~/.config/nnn/fcolors.bash
+
+export NNN_OPTS="aAHQru"
+export LC_COLLATE="C"
+export NNN_PLUG='p:preview-tui;f:finder'
+export NNN_COLORS='5473'
+export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip|zst)$"
+export NNN_TRASH=1 # use trash-cli
+export NNN_BATTHEME="Solarized (light)"
+export NNN_BMS="b:~/.config/nnn/bookmarks"
+
+# cd on quit
+# Block nesting of nnn in subshells
+[ "${NNNLVL:-0}" -eq 0 ] || {
+    echo "nnn is already running"
+    return
+}
+
+# The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+# If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
+# see. To cd on quit only on ^G, remove the "export" and make sure not to
+# use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
+#      NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+# Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+# stty start undef
+# stty stop undef
+# stty lwrap undef
+# stty lnext undef
+
+# The command builtin allows one to alias nnn to n, if desired, without
+# making an infinitely recursive alias
+
+#command /usr/bin/nnn "$@"
+command /usr/bin/nnn -Pp "$@"
+# -Pp autoload plugin p(preview-tui)
+
+if [[ -f "$NNN_TMPFILE" ]]; then
+    source "$NNN_TMPFILE"
+    \rm -f "$NNN_TMPFILE" > /dev/null
+fi
+
+# umount mounted by achivemount
+if [ ! -n "$(find ~/.config/nnn/mounts/ -maxdepth 0 -type d -empty 2>/dev/null)" ]; then
+    umount ~/.config/nnn/mounts/* 2>/dev/null && rmdir ~/.config/nnn/mounts/*
+fi
+
+# -a      auto NNN_FIFO
+# -A      no dir auto-enter during filter
+# -b key  open bookmark key (trumps -s/S)
+# -B      use bsdtar for archives
+# -c      cli-only NNN_OPENER (trumps -e)
+# -C      8-color scheme
+# -d      detail mode
+# -D      dirs in context color
+# -e      text in $VISUAL/$EDITOR/vi
+# -E      internal edits in EDITOR
+# -f      use readline history file
+# -F val  fifo mode [0:preview 1:explore]
+# -g      regex filters
+# -H      show hidden files
+# -i      show current file info
+# -J      no auto-advance on selection
+# -K      detect key collision and exit
+# -l val  set scroll lines
+# -n      type-to-nav mode
+# -o      open files only on Enter
+# -p file selection file [-:stdout]
+# -P key  run plugin key
+# -Q      no quit confirmation
+# -r      use advcpmv patched cp, mv
+# -R      no rollover at edges
+# -s name load session by name
+# -S      persistent session
+# -t secs timeout to lock
+# -T key  sort order [a/d/e/r/s/t/v]
+# -u      use selection (no prompt)
+# -U      show user and group
+# -V      show version
+# -x      notis, selection sync, xterm title
