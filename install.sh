@@ -33,3 +33,6 @@ ln -sf $PWD/.config/hypr $HOME/.config/hypr
 # oh-my-bash
 rm -r $HOME/.oh-my-bash/custom/completions
 ln -sf $PWD/.oh-my-bash/custom/completions $HOME/.oh-my-bash/custom/
+
+# lsd
+ln -sf $PWD/.config/lsd $HOME/.config/lsd
