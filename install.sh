@@ -38,3 +38,7 @@ ln -sf $PWD/.oh-my-bash/custom/completions $HOME/.oh-my-bash/custom/
 # lsd
 rm -r $HOME/.config/lsd
 ln -sf $PWD/.config/lsd $HOME/.config/lsd
+
+# waybar
+rm -r $HOME/.config/waybar
+ln -sf $PWD/.config/waybar $HOME/.config/waybar
