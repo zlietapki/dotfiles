@@ -178,6 +178,7 @@ plugins=(
 #  fi
 
 source "$OSH"/oh-my-bash.sh
+unset CDPATH # disable show path on `cd`
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
