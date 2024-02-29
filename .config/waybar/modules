@@ -254,7 +254,7 @@
     "format-alt-click": "click",
     "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
-    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\"",
+    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
 },
 
 "memory": {
@@ -263,8 +263,8 @@
     "format-alt": "󰾆 {percentage}%",
     "format-alt-click": "click",
     "tooltip": true,
-    "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
-    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\"",
+    "tooltip-format": "{used:0.1f}G/{total:0.1f}G",
+    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
 },
 
 "temperature": {
@@ -279,31 +279,31 @@
 
 "temperature#cpu": {
     "interval": 10,
-    "tooltip": true,
+    "tooltip": false,
     "hwmon-path": ["/sys/class/hwmon/hwmon0/temp1_input"],
     "critical-threshold": 82,
-    "format-critical": "{icon} {temperatureC}°C",
-    "format": "{icon} CPU {temperatureC}°C",
+    "format-critical": "{icon} {temperatureC}°",
+    "format": "{icon} CPU {temperatureC}°",
     "format-icons": ["󰈸"]
 },
 
 "temperature#nvme0": {
     "interval": 10,
-    "tooltip": true,
+    "tooltip": false,
     "hwmon-path": ["/sys/class/hwmon/hwmon1/temp1_input"],
     "critical-threshold": 82,
-    "format-critical": "{icon} {temperatureC}°C",
-    "format": "{icon} NVME0 {temperatureC}°C",
+    "format-critical": "{icon} {temperatureC}°",
+    "format": "{icon} NVME0 {temperatureC}°",
     "format-icons": ["󰈸"]
 },
 
 "temperature#nvme1": {
     "interval": 10,
-    "tooltip": true,
+    "tooltip": false,
     "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input"],
     "critical-threshold": 82,
-    "format-critical": "{icon} {temperatureC}°C",
-    "format": "{icon} NVME1 {temperatureC}°C",
+    "format-critical": "{icon} {temperatureC}°",
+    "format": "{icon} NVME1 {temperatureC}°",
     "format-icons": ["󰈸"]
 },
 
@@ -311,7 +311,7 @@
     "interval": 30,
     "path": "/",
     "format": "󰋊 {percentage_used}%",
-    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+    "tooltip-format": "{used} used out of {total} on {path}"
 },
     
 "hyprland/language": {
