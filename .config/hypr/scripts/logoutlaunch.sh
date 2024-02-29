@@ -15,7 +15,7 @@ y_mon=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .height')
 hypr_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale' | sed 's/\.//')
 hypr_border=`hyprctl -j getoption decoration:rounding | jq '.int'`
 
-export mgn=$(( y_mon * 30 / hypr_scale ))
+export mgn=$(( y_mon * 20 / hypr_scale ))
 export fntSize=$(( y_mon * 2 / 100 ))
 export button_rad=$(( hypr_border * 8 ))
 
