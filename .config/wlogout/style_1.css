@@ -1,0 +1,62 @@
+* {
+    background-image: none;
+    font-size: ${fntSize}px;
+}
+
+@define-color bar-bg rgba(0, 0, 0, 0);
+
+@define-color main-bg #24283b;
+@define-color main-fg #7aa2f7;
+
+@define-color wb-act-bg #bb9af7;
+@define-color wb-act-fg #b4f9f8;
+
+@define-color wb-hvr-bg #7aa2f7;
+@define-color wb-hvr-fg #cfc9c2;
+
+window {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+button {
+    color: white;
+    background-color: @main-bg;
+    outline-style: none;
+    border: none;
+    border-width: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20%;
+    box-shadow: none;
+    text-shadow: none;
+    animation: gradient_f 20s ease-in infinite;
+}
+
+:focus {
+    background-color: @wb-act-bg;
+    background-size: 30%;
+}
+
+#elem1 {
+    background-image: image(url("$HOME/.config/wlogout/icons/suspend_white.png"), url("/usr/share/wlogout/icons/suspend.png"));
+    border-radius: ${button_rad}px 0 0 ${button_rad}px;
+    margin: ${mgn}px 0 ${mgn}px ${mgn}px;
+}
+
+#elem3 {
+    background-image: image(url("$HOME/.config/wlogout/icons/logout_white.png"), url("/usr/share/wlogout/icons/logout.png"));
+    border-radius: 0;
+    margin: ${mgn}px 0 ${mgn}px 0;
+}
+
+#elem5 {
+    background-image: image(url("$HOME/.config/wlogout/icons/shutdown_white.png"), url("/usr/share/wlogout/icons/shutdown.png"));
+    border-radius: 0;
+    margin: ${mgn}px 0 ${mgn}px 0;
+}
+
+#elem6 {
+    background-image: image(url("$HOME/.config/wlogout/icons/reboot_white.png"), url("/usr/share/wlogout/icons/reboot.png"));
+    border-radius: 0 ${button_rad}px ${button_rad}px 0;
+    margin: ${mgn}px ${mgn}px ${mgn}px 0;
+}

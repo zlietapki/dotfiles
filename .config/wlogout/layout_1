@@ -1,0 +1,28 @@
+
+{
+    "label" : "elem1",
+    "action" : "swaylock -f && systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
+}
+
+{
+    "label" : "elem3",
+    "action" : "hyprctl dispatch exit 0",
+    "text" : "Logout",
+    "keybind" : "l"
+}
+
+{
+    "label" : "elem5",
+    "action" : "shutdown -h now",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+
+{
+    "label" : "elem6",
+    "action" : "reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}
