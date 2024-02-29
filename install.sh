@@ -46,4 +46,5 @@ ln -sf $PWD/.config/waybar $HOME/.config/waybar
 ln -sf $PWD/.gitconfig $HOME/.gitconfig
 
 # wlogout
+rm -r $HOME/.config/wlogout
 ln -sf $PWD/.config/wlogout $HOME/.config/wlogout
