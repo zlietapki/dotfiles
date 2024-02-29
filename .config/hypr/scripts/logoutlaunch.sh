@@ -1,55 +1,26 @@
 #!/usr/bin/env sh
 
-# Check if wlogout is already running
-if pgrep -x "wlogout" > /dev/null
-then
-    pkill -x "wlogout"
-    exit 0
-fi
+pkill -x "wlogout" && exit 0
 
-# set file variables
-ScrDir=`dirname $(realpath $0)`
-source $ScrDir/globalcontrol.sh
-export gtkTheme="$HOME/.config/gtk-theme/theme.css"
-wLayout="$HOME/.config/wlogout/layout_$1"
-wlTmplt="$HOME/.config/wlogout/style_$1.css"
+layout="$HOME/.config/wlogout/layout_$1"
+style="$HOME/.config/wlogout/style_$1.css"
 
-if [ ! -f $wLayout ] || [ ! -f $wlTmplt ] ; then
+if [ ! -f $layout ] || [ ! -f $style ] ; then
     echo "ERROR: Config $1 not found..."
     exit 1;
 fi
 
 # detect monitor res
-x_mon=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width')
 y_mon=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .height')
 hypr_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale' | sed 's/\.//')
+hypr_border=`hyprctl -j getoption decoration:rounding | jq '.int'`
 
-
-# scale config layout and style
-case $1 in
-    1)  wlColms=4
-        export mgn=$(( y_mon * 28 / hypr_scale ))
-        export hvr=$(( y_mon * 23 / hypr_scale )) ;;
-    2)  wlColms=2
-        export x_mgn=$(( x_mon * 35 / hypr_scale ))
-        export y_mgn=$(( y_mon * 25 / hypr_scale ))
-        export x_hvr=$(( x_mon * 32 / hypr_scale ))
-        export y_hvr=$(( y_mon * 20 / hypr_scale )) ;;
-esac
-
-# scale font size
+export mgn=$(( y_mon * 30 / hypr_scale ))
 export fntSize=$(( y_mon * 2 / 100 ))
-
-export BtnCol="white"
-export WindBg="rgba(0,0,0,0.5)"
-
-# eval hypr border radius
-export active_rad=$(( hypr_border * 5 ))
 export button_rad=$(( hypr_border * 8 ))
 
 # eval config files
-wlStyle=`envsubst < $wlTmplt`
+wlStyle=`envsubst < $style`
 
 # launch wlogout
-wlogout --buttons-per-row $wlColms --column-spacing 0 --row-spacing 0 --margin 0 --layout $wLayout --css <(echo "$wlStyle") --protocol layer-shell
-
+wlogout --buttons-per-row 4 --column-spacing 0 --row-spacing 0 --margin 0 --layout $layout --css <(echo "$wlStyle") --protocol layer-shell
