@@ -254,7 +254,7 @@
     "format-alt-click": "click",
     "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
-    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
+    "on-click-right": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
 },
 
 "memory": {
@@ -264,7 +264,7 @@
     "format-alt-click": "click",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}G/{total:0.1f}G",
-    "on-click": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
+    "on-click-right": "kill $(hyprctl clients -j | jq '.[] | select(.class == \"sysmonitor\") | .pid') || kitty --class=sysmonitor -e \"htop\""
 },
 
 "temperature": {
@@ -393,20 +393,17 @@
       
 "network": {
     "format": "{ifname}",
-    // "format-ethernet": "󰌘",
-    "format-ethernet": "󱘖  {ipaddr}",
-    // "format-wifi": "{icon}",
+    "format-ethernet": "󰌘 {ipaddr}",
     "format-wifi": "󰤨  {essid}",
 
     // "format-disconnected": "󰌙", 
     "format-disconnected": "  Disconnected",
 
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
-    // "format-linked": "󰈁 {ifname} (No IP)",
     "format-linked": "󱘖  {ifname} (No IP)",
 
     "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
-    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-ethernet": "{ifname}",
     "tooltip-format-disconnected": "󰌙 Disconnected",
     "max-length": 50,
     "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
