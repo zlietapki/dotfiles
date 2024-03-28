@@ -21,12 +21,14 @@
 	# features = mantis-shrimp-lite
 	features = mellow-barbet
 
-    navigate = true
+	navigate = true
 	line-numbers = true
 	side-by-side = true
+	minus-style = "#e6ffc8" "#d9291c"
+	plus-style = "#252e04" "#85c040"
 
 [merge]
-    conflictstyle = diff3
+	conflictstyle = diff3
 
 [diff]
     colorMoved = default

@@ -12,7 +12,7 @@
 		"group/motherboard",
 		"custom/weather"
 	],
-
+	
 	"modules-center": [
 		"hyprland/workspaces#roman"
 	],
@@ -20,11 +20,11 @@
 	"modules-right": [
 		"hyprland/language",
 		"tray",
-		"network", 
-		// "bluetooth", 
-		// "backlight", 
+		"network",
+		// "bluetooth",
+		// "backlight",
 		"group/audio",
-		// "battery", 
+		"battery", 
 		"clock"
 	]
 }
