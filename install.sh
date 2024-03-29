@@ -4,6 +4,10 @@ ln -sf $PWD/.bashrc $HOME/.bashrc
 ln -sf $PWD/.profile $HOME/.profile
 ln -sf $PWD/.dircolors $HOME/.dircolors
 
+# anyrun
+rm -r $HOME/.config/anyrun
+ln -sf $PWD/.config/anyrun $HOME/.config/anyrun
+
 # bat
 rm -r $HOME/.config/bat
 ln -sf $PWD/.config/bat $HOME/.config/bat
