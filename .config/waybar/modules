@@ -4,7 +4,7 @@
 // HYPRLAND WORKSPACES. CHOOSE as desired and place on waybar configs
 // CIRCLES Style
 "hyprland/workspaces": {
-	"active-only": false,
+    "active-only": false,
     "all-outputs": true, 
     "format": "{icon}",
     "show-special": false,
@@ -21,7 +21,7 @@
     "format-icons": {
         "active": "",
         "default": ""
-	}
+    }
 },
 
 // ROMAN Numerals style
@@ -394,7 +394,10 @@
 "network": {
     "format": "{ifname}",
     "format-ethernet": "󰌘 {ipaddr}",
-    "format-wifi": "󰤨  {essid}",
+    "tooltip-format-ethernet": "{ifname}",
+
+    "format-wifi": "󰤨 {ipaddr}",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
 
     // "format-disconnected": "󰌙", 
     "format-disconnected": "  Disconnected",
@@ -402,8 +405,6 @@
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
     "format-linked": "󱘖  {ifname} (No IP)",
 
-    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
-    "tooltip-format-ethernet": "{ifname}",
     "tooltip-format-disconnected": "󰌙 Disconnected",
     "max-length": 50,
     "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
