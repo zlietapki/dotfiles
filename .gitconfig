@@ -8,22 +8,20 @@
 	name = Andrey Martemianov
 
 [include]
-    path = ~/.config/delta/themes.gitconfig
+	path = ~/.config/delta/themes.gitconfig
 
 [core]
-    pager = delta
+	pager = delta
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-	# features = hoopoe
-	# features = mantis-shrimp-lite
-	features = mellow-barbet
+	features = GitHub
 
 	navigate = true
-	line-numbers = true
 	side-by-side = true
+	line-numbers = true
 	minus-style = "#e6ffc8" "#d9291c"
 	plus-style = "#252e04" "#85c040"
 
@@ -31,4 +29,4 @@
 	conflictstyle = diff3
 
 [diff]
-    colorMoved = default
+	colorMoved = default
