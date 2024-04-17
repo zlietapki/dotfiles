@@ -221,7 +221,7 @@ alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl act
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias n='source ~/.local/bin/nnn'
 alias rustc='rustc --color=never'
-alias mount='sudo mount -o gid=asd,uid=asd'
+alias mount2='sudo mount -o gid=asd,uid=asd'
 
 # color man
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
