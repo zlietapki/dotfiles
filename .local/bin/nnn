@@ -10,6 +10,7 @@ export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|l
 export NNN_TRASH=1 # use trash-cli
 export NNN_BATTHEME="Solarized (light)"
 export NNN_BMS="b:~/.config/nnn/bookmarks"
+export NNN_LOCKER='htop'
 
 # cd on quit
 # Block nesting of nnn in subshells
