@@ -221,7 +221,11 @@ alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl act
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias n='source ~/.local/bin/nnn'
 alias rustc='rustc --color=never'
+alias vpn='sslocal -b "127.0.0.1:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"'
+alias brave-vpn='brave --proxy-server="socks5://127.0.0.1:1080"'
+alias chrome-vpn='google-chrome-stable --proxy-server="socks5://127.0.0.1:1080"'
 alias mount2='sudo mount -o gid=asd,uid=asd'
+alias t='sleep $((60*20)) && mpv ~/Music/KMFDM\ -\ Megalomaniak.mp3'
 
 # color man
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
