@@ -17,6 +17,10 @@ BLUE=$(tput setaf 33)
 CYAN=$(tput setaf 37)
 GREEN=$(tput setaf 64)
 
+OCEAN_BLUE1=$(tput setaf 39)
+OCEAN_BLUE2=$(tput setaf 69)
+OCEAN_BLUE3=$(tput setaf 105)
+
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
@@ -31,7 +35,8 @@ function _omb_theme_PROMPT_COMMAND() {
   #PS1="${_omb_prompt_olive}\u${_omb_prompt_normal}${_omb_prompt_teal}@\h${_omb_prompt_normal}${_omb_prompt_purple} ${_omb_prompt_normal}${_omb_prompt_green}\w${_omb_prompt_normal}$(scm_prompt_info)> "
   #PS1="${_omb_prompt_olive}\u${_omb_prompt_normal}${_omb_prompt_teal}@\h${_omb_prompt_normal}${_omb_prompt_purple} ${_omb_prompt_normal}${_omb_prompt_green}\w${_omb_prompt_normal}$(scm_prompt_info)> "
   # PS1="\[$BOLD$GREEN\]\u\[$GREEN\]@\[$GREEN\]\h \[$BLUE\]\w\[$RESET\]$(scm_prompt_info)\[$RESET\]> "
-  PS1="\[$BOLD$GREEN\]\u\[$YELLOW\]@\[$GREEN\]\h \[$BLUE\]\w\[$RESET\]$(scm_prompt_info)\[$RESET\]> "
+  # PS1="\[$BOLD$GREEN\]\u\[$YELLOW\]@\[$GREEN\]\h \[$BLUE\]\w\[$RESET\]$(scm_prompt_info)\[$RESET\]> "
+  PS1="\[$BOLD$OCEAN_BLUE1\]\u\[$OCEAN_BLUE2\]@\[$OCEAN_BLUE3\]\h \[$BLUE\]\w\[$RESET\]$(scm_prompt_info)\[$RESET\]> "
 }
 
 _omb_util_add_prompt_command _omb_theme_PROMPT_COMMAND

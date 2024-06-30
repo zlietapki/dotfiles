@@ -131,7 +131,6 @@
 },
  
 // GROUP
-  
 "group/motherboard": {
     "orientation": "horizontal",
     "modules": [
@@ -227,7 +226,7 @@
      
 "clock": {
     "format": "{:%H:%M}",
-    "format-alt": " {:%H:%M %d %B %Y, %A}",
+    "format-alt": "{:%d-%m-%y %A %H:%M}",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
@@ -611,11 +610,9 @@
     "interval": 3600,
     "return-type": "json",
     "exec": "~/.config/waybar/scripts/Weather.sh",
-    //"exec": "~/.config/hypr/UserScripts/Weather.py",
     "exec-if": "ping wttr.in -c1",
     "tooltip" : true
-},
-  
+},  
   
 // Separators
 "custom/separator#dot": {
