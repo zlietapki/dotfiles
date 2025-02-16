@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-asddoc=/home/asd/.local/bin/asddoc # важен полный путь. PATH здесь нет
+asddoc=$HOME/.local/bin/asddoc # важен полный путь. PATH здесь нет
 
 mapfile -t docs < <(cd ~/Dropbox/ || exit 1; find . -maxdepth 2 -not -wholename '*/.*' | cut -c 3- | sed 's/\.md$//' | sort)
 
@@ -27,3 +27,5 @@ else
     # hyprctl notify -1 10000 "rgb(ff0000)" "fontsize:35 $selected"
     $asddoc "$selected"
 fi
+
+hyprctl dispatch workspace special:codium

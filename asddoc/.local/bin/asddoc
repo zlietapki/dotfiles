@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ $# != 1 ]]; then
+    # hyprctl notify -1 10000 "rgb(ff0000)" "fontsize:35 Need one document name as parameter"
+    echo "Need one document name as parameter"
+    exit 1
+fi
+
+base=$HOME/Dropbox/
+open="codium"
+
+IFS='/' read -ra names <<< "$1"
+namesCnt=${#names[@]}
+
+if [[ $namesCnt == 1 ]]; then
+    $open "${base}${names[0]}/${names[0]}.md"
+    # hyprctl notify -1 10000 "rgb(ff0000)" "fontsize:35 $open ${base}${names[0]}/${names[0]}.md"
+elif [[ $namesCnt == 2 ]]; then
+    $open "${base}${names[0]}/${names[1]}.md"
+    # hyprctl notify -1 10000 "rgb(ff0000)" "fontsize:35 $open ${base}${names[0]}/${names[1]}.md"
+fi
