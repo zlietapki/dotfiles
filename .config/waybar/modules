@@ -223,12 +223,13 @@
     "tooltip": true,
     "on-click": "blueman-manager"
 },
-     
+
 "clock": {
     "format": "{:%H:%M}",
     "format-alt": "{:%d-%m-%y %A %H:%M}",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
+    "timezone": "Europe/Moscow",
     "calendar": {
         "mode"          : "month",
         "on-scroll"     : 1,

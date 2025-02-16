@@ -6,18 +6,56 @@
 # that can't tolerate any output.  So make sure this doesn't display
 # anything or bad things will happen !
 
-if [[ -d /usr/bin/vendor_perl ]]; then 
-    PATH=/usr/bin/vendor_perl:$PATH
-fi
-if [[ -d ~/go/bin ]]; then 
-    PATH=~/go/bin:$PATH
-fi
-if [[ -d ~/.local/bin ]]; then 
-    PATH=~/.local/bin:$PATH
-fi
-if [[ -d ~/.local/share/JetBrains/Toolbox/scripts ]]; then   
-    PATH="$PATH:~/.local/share/JetBrains/Toolbox/scripts"
-fi
+case ":${PATH}:" in
+    *:"/usr/bin/vendor_perl":*)
+        ;;
+    *)
+		if [[ -d /usr/bin/vendor_perl ]]; then
+    		PATH=/usr/bin/vendor_perl:$PATH
+		fi
+        ;;
+esac
+
+# Go
+case ":${PATH}:" in
+    *:"$HOME/go/bin":*)
+        ;;
+    *)
+		if [[ -d $HOME/go/bin ]]; then
+    		PATH=$HOME/go/bin:$PATH
+		fi
+        ;;
+esac
+case ":${PATH}:" in
+    *:"/usr/local/go/bin":*)
+        ;;
+    *)
+		if [[ -d /usr/local/go/bin ]]; then
+    		PATH=/usr/local/go/bin:$PATH
+		fi
+        ;;
+esac
+
+case ":${PATH}:" in
+    *:"$HOME/.local/bin":*)
+        ;;
+    *)
+		if [[ -d $HOME/.local/bin ]]; then
+    		PATH=$HOME/.local/bin:$PATH
+		fi
+        ;;
+esac
+
+case ":${PATH}:" in
+    *:"/home/asd/.local/share/JetBrains/Toolbox/scripts/":*)
+        ;;
+    *)
+		if [[ -d /home/asd/.local/share/JetBrains/Toolbox/scripts/ ]]; then
+    		PATH=/home/asd/.local/share/JetBrains/Toolbox/scripts/:$PATH
+		fi
+        ;;
+esac
+
 if [[ -f ~/.cargo/env ]]; then
     source ~/.cargo/env
 fi
@@ -141,7 +179,7 @@ OMB_USE_SUDO=true
 # Custom completions may be added to ~/.oh-my-bash/custom/completions/
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
-# 
+#
 # completions=(go git ssh rustup cargo)
 completions=(
 	go
@@ -221,12 +259,16 @@ alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl act
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias n='source ~/.local/bin/nnn'
 alias rustc='rustc --color=never'
-alias vpn='sslocal -b "127.0.0.1:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"'
+alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"'
 alias brave-vpn='brave --proxy-server="socks5://127.0.0.1:1080"'
-alias chrome-vpn='google-chrome-stable --proxy-server="socks5://127.0.0.1:1080"'
-alias mount2='sudo mount -o gid=asd,uid=asd'
+alias chrome-vpn='google-chrome-stable --proxy-server="socks5://127.0.0.1:2080"'
+alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 alias t='sleep $((60*20)) && mpv ~/Music/KMFDM\ -\ Megalomaniak.mp3'
+alias byedpi='~/workspace/byedpi/ciadpi --conn-ip 0.0.0.0 --port 1080 --tfo --split 1 --disorder -1'
+
 
 # color man
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
+
+complete -C /home/asd/go/bin/gocomplete go

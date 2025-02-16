@@ -9,8 +9,8 @@
 
 	"modules-left": [
 		"custom/swaync",
-		"group/motherboard",
-		"custom/weather"
+		"group/motherboard"
+//		"custom/weather"
 	],
 	
 	"modules-center": [
@@ -21,10 +21,7 @@
 		"hyprland/language",
 		"tray",
 		"network",
-		// "bluetooth",
-		// "backlight",
 		"group/audio",
-		"battery", 
 		"clock"
 	]
 }

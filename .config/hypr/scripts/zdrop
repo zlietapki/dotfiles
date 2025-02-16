@@ -95,9 +95,11 @@ WSP="$(hyprctl activeworkspace -j | jq --raw-output .id)" || notify "Error execu
 windows_hidden=$(hyprctl clients -j | jq --raw-output ".[] | select(.class == \"$CLASS\" and .workspace.id != $WSP) | .address")
 if [[ $windows_hidden ]]; then
   for win in $windows_hidden; do
-    batch+=("dispatch movetoworkspace $WSP,address:$win")
+    # batch+=("dispatch movetoworkspace $WSP,address:$win")
+    batch+=("dispatch movetoworkspacesilent $WSP,address:$win")
   done
   hyprctl --batch $(join_by ';' "${batch[@]}") || notify "Error moving '$CLASS' to '$WSP'"
+  # hyprctl dispatch movetoworkspacesilent $WSP,address:$windows_hidden
   $VERBOSE && notify "Class '$CLASS' moved to '$WSP'"
   exit 0
 fi
