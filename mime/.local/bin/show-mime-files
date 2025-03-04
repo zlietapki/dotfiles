@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+files="$HOME/.config/mimeapps.list
+$HOME/.local/share/applications/mimeapps.list
+/etc/xdg/mimeapps.list
+/usr/local/share/applications/mimeapps.list
+/usr/share/applications/mimeapps.list
+$HOME/.local/share/applications/mimeinfo.cache
+/usr/local/share/applications/mimeinfo.cache
+/usr/share/applications/mimeinfo.cache
+$HOME/.local/share/applications/defaults.list
+/usr/local/share/applications/defaults.list
+/usr/share/applications/defaults.list"
+
+for file in $files
+do
+    if [[ -f $file ]]; then
+        echo "EXISTS - $file"
+    else
+        echo "$file"
+    fi
+done
