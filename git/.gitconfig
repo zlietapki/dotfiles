@@ -10,23 +10,23 @@
 [include]
 	path = ~/.config/delta/themes.gitconfig
 
-[core]
-	pager = delta
+#[core]
+#	pager = delta
 
-[interactive]
-	diffFilter = delta --color-only
+#[interactive]
+#	diffFilter = delta --color-only
 
-[delta]
-	features = GitHub
+#[delta]
+#	features = GitHub
+#
+#	navigate = true
+#	side-by-side = true
+#	line-numbers = true
+#	minus-style = "#e6ffc8" "#d9291c"
+#	plus-style = "#252e04" "#85c040"
 
-	navigate = true
-	side-by-side = true
-	line-numbers = true
-	minus-style = "#e6ffc8" "#d9291c"
-	plus-style = "#252e04" "#85c040"
-
-[merge]
-	conflictstyle = diff3
+#[merge]
+#	conflictstyle = diff3
 
 [diff]
 	colorMoved = default
