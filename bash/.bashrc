@@ -266,7 +266,7 @@ alias vpn-chrome='google-chrome-stable --proxy-server="socks5://127.0.0.1:2080"'
 alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 [ -f ~/.config/yay/updatethenupgrade.exp ] && alias updatethenupgrade='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 expect ~/.config/yay/updatethenupgrade.exp'
 alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 yay'
-command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S "res:720,fps" --proxy=socks5://127.0.0.1:2080'
+command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
 
 # color man
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
