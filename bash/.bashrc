@@ -65,13 +65,6 @@ fi
 # outputting anything in those cases.
 [[ $- != *i* ]] && return
 
-# detect local console
-case "$(tty)" in
-    /dev/tty[0-9])
-        setfont ter-c32b
-	;;
-esac
-
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
