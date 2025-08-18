@@ -1,64 +1,22 @@
 # /etc/bash/bashrc
 
-#
 # This file is sourced by all *interactive* bash shells on startup,
 # including some apparently interactive shells such as scp and rcp
 # that can't tolerate any output.  So make sure this doesn't display
 # anything or bad things will happen !
 
-case ":${PATH}:" in
-    *:"/usr/bin/vendor_perl":*)
-        ;;
-    *)
-		if [[ -d /usr/bin/vendor_perl ]]; then
-    		PATH=/usr/bin/vendor_perl:$PATH
-		fi
-        ;;
-esac
+pathadd() {
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		PATH="$1${PATH:+":$PATH"}"
+	fi
+}
 
-# Go
-case ":${PATH}:" in
-    *:"$HOME/go/bin":*)
-        ;;
-    *)
-		if [[ -d $HOME/go/bin ]]; then
-    		PATH=$HOME/go/bin:$PATH
-		fi
-        ;;
-esac
-case ":${PATH}:" in
-    *:"/usr/local/go/bin":*)
-        ;;
-    *)
-		if [[ -d /usr/local/go/bin ]]; then
-    		PATH=/usr/local/go/bin:$PATH
-		fi
-        ;;
-esac
-
-case ":${PATH}:" in
-    *:"$HOME/.local/bin":*)
-        ;;
-    *)
-		if [[ -d $HOME/.local/bin ]]; then
-    		PATH=$HOME/.local/bin:$PATH
-		fi
-        ;;
-esac
-
-case ":${PATH}:" in
-    *:"/home/asd/.local/share/JetBrains/Toolbox/scripts/":*)
-        ;;
-    *)
-		if [[ -d /home/asd/.local/share/JetBrains/Toolbox/scripts/ ]]; then
-    		PATH=/home/asd/.local/share/JetBrains/Toolbox/scripts/:$PATH
-		fi
-        ;;
-esac
-
-if [[ -f ~/.cargo/env ]]; then
-    source ~/.cargo/env
-fi
+pathadd "/usr/bin/vendor_perl"
+pathadd "$HOME/go/bin"
+pathadd "/usr/local/go/bin"
+pathadd "$HOME/.local/bin"
+pathadd "$HOME/.local/share/JetBrains/Toolbox/scripts"
+pathadd "$HOME/.cargo/bin"
 
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
@@ -172,8 +130,7 @@ OMB_USE_SUDO=true
 # Custom completions may be added to ~/.oh-my-bash/custom/completions/
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
-#
-# completions=(go git ssh rustup cargo)
+
 completions=(
 	go
 	git
@@ -198,7 +155,6 @@ aliases=(
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	bashmarks
-	sudo
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -210,12 +166,6 @@ plugins=(
 
 source "$OSH"/oh-my-bash.sh
 unset CDPATH # disable show path on `cd`
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -234,10 +184,6 @@ unset CDPATH # disable show path on `cd`
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
 # users are encouraged to define aliases within the OSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
 
 # ███╗   ███╗██╗   ██╗
 # ████╗ ████║╚██╗ ██╔╝
@@ -265,7 +211,7 @@ command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 
-complete -C /home/asd/go/bin/gocomplete go
+# complete -C $HOME/go/bin/gocomplete go
 
 # fuzzy finder. enable fzf
 [ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
