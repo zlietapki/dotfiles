@@ -1,0 +1,14 @@
+set constantshow # always show cursor position
+set linenumbers # left line numbers
+set afterends # ctrl+right stops at the end of word
+set autoindent # autospaces on new line
+set tabsize 4 # размер таба
+set tabstospaces # конвертировать табы в пробелы
+
+include "/usr/share/nano/go.nanorc"
+include "/usr/share/nano/json.nanorc"
+include "~/.config/nano/markdown.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/yaml.nanorc"
