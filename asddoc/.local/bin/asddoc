@@ -54,7 +54,3 @@ if [[ $PRINT_ONLY == 1 ]]; then
 fi
 
 $ED "$doc"
-
-# ./asddoc linux | xargs --no-run-if-empty codium
-# ./asddoc linux | codium $(</dev/stdin)
-# hyprctl notify -1 10000 "rgb(ff0000)" "fontsize:35 Need one document name as parameter"
