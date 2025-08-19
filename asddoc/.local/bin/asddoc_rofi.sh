@@ -9,6 +9,31 @@ usage() {
     echo "  -h, --help This message"
     exit 1;
 }
+get_docs() { # basedir
+    local docs
+    mapfile -t docs < <(cd "$1" || exit 1; find . -maxdepth 2 -not -wholename '*/.*' | cut -c 3- | sed 's/\.md$//' | sort)
+
+    # убрать name/name
+    local doc
+    local filtered_docs
+    for doc in "${docs[@]}"; do
+        IFS='/' read -ra name <<< "$doc"
+        [[ ${name[0]} = "${name[1]}" ]] || filtered_docs+=("$doc")
+    done
+    printf "%s\n" "${filtered_docs[@]}" # convert array to string
+}
+doc2path() { # document basedir - возваращает абсолютный путь
+    local names
+    IFS='/' read -ra names <<< "$1"
+    case ${#names[@]} in
+        1) echo "${2}/${names[0]}/${names[0]}.md";;
+        2) echo "${2}/${names[0]}/${names[1]}.md";;
+        *)
+            >&2 echo "Tree deeper then 2 is not suppoted"; # stderr
+            exit 1;
+        ;;
+    esac
+}
 
 TEMP=$(getopt --options d:h --longoptions dir:,help --name 'asddoc' -- "$@") || exit 1;
 eval set -- "$TEMP"
@@ -23,38 +48,13 @@ while true; do
   esac
 done
 
-get_docs() {
-    mapfile -t docs < <(cd "$DIR" || exit 1; find . -maxdepth 2 -not -wholename '*/.*' | cut -c 3- | sed 's/\.md$//' | sort)
-
-    # убрать name/name
-    for doc in "${docs[@]}"; do
-        IFS='/' read -ra name <<< "$doc"
-        [[ ${name[0]} = "${name[1]}" ]] || filtered_docs+=("$doc")
-    done
-    printf "%s\n" "${filtered_docs[@]}" # convert array to string
-}
-
-selected_entered=$(get_docs | rofi -p asddoc: -dmenu -format 's F' 2>/dev/null) || exit 2
+selected_entered=$(get_docs "$DIR" | rofi -p asddoc: -dmenu -format 's F' 2>/dev/null) || exit 2
 
 IFS=' ' read -r selected entered <<< "$selected_entered"
 entered=$(echo "$entered" | tr -d "'") # убрать кавычки
-
-# если последний введенный символ пробел, то создать новую страницу
-if [[ $entered =~ [[:space:]]$ ]]; then
+DOC="$selected"
+if [[ $entered =~ [[:space:]]$ ]]; then # если последний введенный символ пробел, то создать новый документ
     DOC=${entered// /} # убрать пробелы
-else
-    DOC="$selected"
 fi
 
-IFS='/' read -ra names <<< "$DOC"
-namesCnt=${#names[@]}
-
-if [[ $namesCnt == 1 ]]; then
-    echo "${DIR}/${names[0]}/${names[0]}.md"
-    # echo "${DIR}/${DOC}/index.md"
-elif [[ $namesCnt == 2 ]]; then
-    echo "${DIR}/${names[0]}/${names[1]}.md"
-else
-    echo "Tree deeper then 2 is not suppoted";
-    exit 1;
-fi
+doc2path "$DOC" "$DIR" || exit 1;

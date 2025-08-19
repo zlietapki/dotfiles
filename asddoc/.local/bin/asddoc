@@ -11,6 +11,18 @@ usage() {
     echo "  -h, --help This message"
     exit 1;
 }
+doc2path() { # document basedir - возваращает абсолютный путь
+    local names
+    IFS='/' read -ra names <<< "$1"
+    case ${#names[@]} in
+        1) echo "${2}/${names[0]}/${names[0]}.md";;
+        2) echo "${2}/${names[0]}/${names[1]}.md";;
+        *)
+            >&2 echo "Tree deeper then 2 is not suppoted"; # stderr
+            exit 1;
+        ;;
+    esac
+}
 
 TEMP=$(getopt --options d:pe:h --longoptions dir:,help --name 'asddoc' -- "$@") || exit 1;
 eval set -- "$TEMP"
@@ -34,19 +46,7 @@ if [ -z "$DOC" ]; then
     usage;
 fi
 
-IFS='/' read -ra names <<< "$DOC"
-namesCnt=${#names[@]}
-
-
-if [[ $namesCnt == 1 ]]; then
-    doc="${DIR}/${names[0]}/${names[0]}.md"
-    # echo "${DIR}/${DOC}/index.md"
-elif [[ $namesCnt == 2 ]]; then
-    doc="${DIR}/${names[0]}/${names[1]}.md"
-else
-    echo "Tree deeper then 2 is not suppoted";
-    exit 1;
-fi
+doc=$(doc2path "$DOC" "$DIR") || exit 1;
 
 if [[ $PRINT_ONLY == 1 ]]; then
     echo "$doc";
@@ -54,8 +54,6 @@ if [[ $PRINT_ONLY == 1 ]]; then
 fi
 
 $ED "$doc"
-
-exit 0;
 
 # ./asddoc linux | xargs --no-run-if-empty codium
 # ./asddoc linux | codium $(</dev/stdin)
