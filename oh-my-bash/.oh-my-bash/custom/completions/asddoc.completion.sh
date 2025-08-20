@@ -15,7 +15,7 @@ get_docs() {
 
 _asddoc_completion()
 {
-    doc=$(get_docs | fzf --layout=reverse-list)
+    doc=$(get_docs | fzf --exact --layout=reverse-list --query "${COMP_WORDS[COMP_CWORD]}")
     if [ "x$doc" != "x" ]; then
         COMPREPLY=("$doc")
     fi
