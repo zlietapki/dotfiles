@@ -8,7 +8,7 @@
 
 {
     "label" : "elem3",
-    "action" : "killall Hyprland",
+    "action" : "hyprctl dispatch exit",
     "text" : "Logout",
     "keybind" : "l"
 }
