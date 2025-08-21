@@ -11,6 +11,10 @@ usage() {
     echo "  -h, --help This message"
     exit 1;
 }
+log_err() { # MESSAGE - log to systemd journal and stderr
+    echo "$1" | systemd-cat -p err -t "$(basename "$0")"
+    >&2 echo "$1"; # stderr
+}
 doc2path() { # document basedir - возваращает абсолютный путь
     local names
     IFS='/' read -ra names <<< "$1"
@@ -18,7 +22,7 @@ doc2path() { # document basedir - возваращает абсолютный п
         1) echo "${2}/${names[0]}/${names[0]}.md";;
         2) echo "${2}/${names[0]}/${names[1]}.md";;
         *)
-            >&2 echo "Tree deeper then 2 is not suppoted"; # stderr
+            log_err "Tree deeper then 2 is not suppoted"
             exit 1;
         ;;
     esac
@@ -51,6 +55,12 @@ doc=$(doc2path "$DOC" "$DIR") || exit 1;
 if [[ $PRINT_ONLY == 1 ]]; then
     echo "$doc";
     exit;
+fi
+
+# check deps: $ED
+if ! type "$ED" &>/dev/null; then
+    log_err "Editor $ED not installed"
+    exit 1
 fi
 
 $ED "$doc"

@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
 usage() {
-    echo "Converts document name to its filepath."
+    echo "Convert document name to its absolute filepath and open it."
     echo
     echo "Usage: asddoc_rofi [-d|--dir=] <document>" 1>&2;
     echo "  OPTIONS:"
     echo "  -d DIR, --dir=DIR Set document dir to DIR (default is ~/Dropbox)"
+    echo "  -p --print-only Print absolute path only"
+    echo "  -e --editor Use editor (\$EDITOR is default)"
     echo "  -h, --help This message"
     exit 1;
 }
-get_docs() { # basedir
+log_err() { # MESSAGE - log to systemd journal and stderr
+    echo "$1" | systemd-cat -p err -t "$(basename "$0")"
+    >&2 echo "$1"; # stderr
+}
+get_docs() { # BASE_DIR
     local docs
     mapfile -t docs < <(cd "$1" || exit 1; find . -maxdepth 2 -not -wholename '*/.*' | cut -c 3- | sed 's/\.md$//' | sort)
 
@@ -22,26 +28,30 @@ get_docs() { # basedir
     done
     printf "%s\n" "${filtered_docs[@]}" # convert array to string
 }
-doc2path() { # document basedir - возваращает абсолютный путь
+doc2path() { # DOCUMENT BASE_DIR - возваращает абсолютный путь
     local names
     IFS='/' read -ra names <<< "$1"
     case ${#names[@]} in
         1) echo "${2}/${names[0]}/${names[0]}.md";;
         2) echo "${2}/${names[0]}/${names[1]}.md";;
         *)
-            >&2 echo "Tree deeper then 2 is not suppoted"; # stderr
+            log_err "Tree deeper then 2 is not suppoted"
             exit 1;
         ;;
     esac
 }
 
-TEMP=$(getopt --options d:h --longoptions dir:,help --name 'asddoc' -- "$@") || exit 1;
+TEMP=$(getopt --options d:pe:h --longoptions dir:,help --name 'asddoc' -- "$@") || exit 1;
 eval set -- "$TEMP"
 
 DIR=$HOME/Dropbox
+PRINT_ONLY=
+ED=${EDITOR:-codium}
 while true; do
   case "$1" in
     -d | --dir ) DIR="$2"; shift 2;;
+    -p | --print-only ) PRINT_ONLY=1; shift;;
+    -e | --editor ) ED="$2"; shift 2;;
     -h | --help ) usage;;
     -- ) shift; break;;
     * ) break;;
@@ -50,7 +60,7 @@ done
 
 # check deps: rofi
 if ! type rofi &>/dev/null; then
-    echo "rofi not installed" | systemd-cat -p err -t "$(basename "$0")"
+    log_err "rofi not installed"
     exit 1
 fi
 
@@ -63,4 +73,17 @@ if [[ $entered =~ [[:space:]]$ ]]; then # если последний введе
     DOC=${entered// /} # убрать пробелы
 fi
 
-doc2path "$DOC" "$DIR" || exit 1;
+doc=$(doc2path "$DOC" "$DIR") || exit 1;
+
+if [[ $PRINT_ONLY == 1 ]]; then
+    echo "$doc";
+    exit;
+fi
+
+# check deps: $ED
+if ! type "$ED" &>/dev/null; then
+    log_err "Editor $ED not installed"
+    exit 1
+fi
+
+$ED "$doc"
