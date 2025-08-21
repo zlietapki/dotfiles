@@ -192,7 +192,7 @@ unset CDPATH # disable show path on `cd`
 # ██║ ╚═╝ ██║   ██║   
 # ╚═╝     ╚═╝   ╚═╝   
 alias ll='lsd -la'
-alias pacman-clean='pacs=$(pacman -Qqtd); [ $? ] || pacman -Rcns $pacs'
+alias pacman-clean='pacs=$(pacman -Qqtd) && sudo pacman -Rcns $pacs'
 alias pacman-installed='expac --timefmt="%Y-%m-%d %T" "%l\t%n" $(pacman -Qqe) | sort -n' # только установленные явно
 alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl activeworkspace -j | jq .id))]"'
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
