@@ -192,11 +192,9 @@ unset CDPATH # disable show path on `cd`
 # ██║ ╚═╝ ██║   ██║   
 # ╚═╝     ╚═╝   ╚═╝   
 alias ll='lsd -la'
-alias pacman-clean='pacs=$(pacman -Qqtd) && sudo pacman -Rcns $pacs'
-alias pacman-installed='expac --timefmt="%Y-%m-%d %T" "%l\t%n" $(pacman -Qqe) | sort -n' # только установленные явно
+alias pacman-clean='pacs=$(pacman -Qqtd); [ $? ] || pacman -Rcns $pacs'
 alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl activeworkspace -j | jq .id))]"'
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
-alias n='source ~/.local/bin/nnn'
 alias rustc='rustc --color=never'
 
 alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"'
@@ -216,3 +214,8 @@ export MANROFFOPT="-P -c"
 # fuzzy finder. enable fzf
 [ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
 [ -f ~/.config/fzf/key-bindings.bash ] && source ~/.config/fzf/key-bindings.bash
+
+# incluide my aliases
+for f in ~/.local/include/bash_aliases/*; do
+    source $f;
+done

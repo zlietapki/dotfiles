@@ -1,0 +1,1 @@
+alias pacman-installed='expac --timefmt="%Y-%m-%d %T" "%l\t%n" $(pacman -Qqe) | sort -n' # только установленные явно, отсортированные по времени установки
