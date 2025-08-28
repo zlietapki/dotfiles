@@ -1,36 +1,28 @@
 #! bash oh-my-bash.module
 
 # SOLARIZED
-BASE03=$(tput setaf 234)
-BASE02=$(tput setaf 235)
-BASE01=$(tput setaf 240)
-BASE00=$(tput setaf 241) # body text / default code / primary content
-BASE0=$(tput setaf 244)
-BASE1=$(tput setaf 245) # comments / secondaty content
-BASE2=$(tput setaf 254) # backgroud highlights
-BASE3=$(tput setaf 230) # backgroud
-YELLOW=$(tput setaf 136)
-ORANGE=$(tput setaf 166)
-RED=$(tput setaf 160)
-MAGENTA=$(tput setaf 125)
-VIOLET=$(tput setaf 61)
-BLUE=$(tput setaf 33)
-CYAN=$(tput setaf 37)
-GREEN=$(tput setaf 64)
+BASE03='\[\e[38;2;0;43;54m\]'
+BASE02='\[\e[38;2;7;54;66m\]'
+BASE01='\[\e[38;2;88;110;117m\]'
+BASE00='\[\e[38;2;101;123;131m\]' # body text / default code / primary content
+BASE0='\[\e[38;2;131;148;150m\]'
+BASE1='\[\e[38;2;147;161;161m\]' # comments / secondaty content
+BASE2='\[\e[38;2;238;232;213m\]' # backgroud highlights
+BASE3='\[\e[38;2;253;246;227m\]' # backgroud
+YELLOW='\[\e[38;2;181;137;0m\]'
+ORANGE='\[\e[38;2;203;75;22m\]'
+RED='\[\e[38;2;220;50;47m\]'
+MAGENTA='\[\e[38;2;211;54;130m\]'
+VIOLET='\[\e[38;2;108;113;196m\]'
+BLUE='\[\e[38;2;38;139;210m\]'
+CYAN='\[\e[38;2;42;161;152m\]'
+GREEN='\[\e[38;2;133;153;0m\]'
 
-BG_BASE2="$(tput setab 254)"
+BOLD=${_omb_prompt_bold}
 
-OCEAN_BLUE1=$(tput setaf 39)
-OCEAN_BLUE2=$(tput setaf 69)
-OCEAN_BLUE3=$(tput setaf 105)
 
-BOLD=$(tput bold)
-UNDERLINE_START=$(tput smul)
-UNDERLINE_END=$(tput rmul)
+RESET=${_omb_prompt_normal}
 
-RESET=$(tput sgr0)
-
-# SCM_THEME_PROMPT_PREFIX=" ${_omb_prompt_purple}"
 SCM_THEME_PROMPT_PREFIX=" ${VIOLET}"
 SCM_THEME_PROMPT_SUFFIX=""
 SCM_THEME_PROMPT_DIRTY=" $RED✗"
@@ -59,7 +51,7 @@ function _omb_theme_PROMPT_COMMAND() {
       ps_user_host="\h";
       ps_user_path=" ${CYAN}\w";
       
-      ps_user_mark=" ${BASE1}> ${RESET}";
+      ps_user_mark=" ${BASE1}> ";
 
       ps_root_name="${RED}\u";
       ps_root_at="@";
@@ -69,9 +61,9 @@ function _omb_theme_PROMPT_COMMAND() {
   esac
 
   case $(id -u) in
-    0) PS1="$ps_root_name$ps_root_at$ps_root_host$ps_root_path$(scm_prompt_info)$ps_root_mark${BASE00}"; # root
+    0) PS1="${ps_root_name}${ps_root_at}${ps_root_host}${ps_root_path}$(scm_prompt_info)${ps_root_mark}${RESET}"; # root
         ;;
-    *) PS1="${BASE00}$ps_user_name$ps_user_at$ps_user_host$ps_user_path$(scm_prompt_info)$ps_user_mark${BASE00}";
+    *) PS1="${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
         ;;
   esac
 }
