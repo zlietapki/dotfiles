@@ -18,10 +18,9 @@ BLUE='\[\e[38;2;38;139;210m\]'
 CYAN='\[\e[38;2;42;161;152m\]'
 GREEN='\[\e[38;2;133;153;0m\]'
 
-BOLD=${_omb_prompt_bold}
-
-
-RESET=${_omb_prompt_normal}
+BOLD='\[\e[1m\]'
+NORMAL='\[\e[0m\]'
+RESET='\[\e[39m\]'
 
 SCM_THEME_PROMPT_PREFIX=" ${VIOLET}"
 SCM_THEME_PROMPT_SUFFIX=""
@@ -36,32 +35,30 @@ function _omb_theme_PROMPT_COMMAND() {
       ps_user_at="";
       ps_user_host="";
       ps_user_path="${BLUE}\w";
-      
-      ps_user_mark=" ${BASE1}> ${RESET}";
+      ps_user_mark=" ${CYAN}> ";
 
       ps_root_name="${RED}\u";
       ps_root_at="";
       ps_root_host="";
       ps_root_path=" ${ORANGE}\w";
-      ps_root_mark=" ${ORANGE}# ${RESET}"
+      ps_root_mark=" ${ORANGE}# "
     ;;
     *)
       ps_user_name="\u";
       ps_user_at="@";
       ps_user_host="\h";
       ps_user_path=" ${CYAN}\w";
-      
       ps_user_mark=" ${BASE1}> ";
 
       ps_root_name="${RED}\u";
       ps_root_at="@";
       ps_root_host="\h";
       ps_root_path=" ${ORANGE}\w";
-      ps_root_mark=" ${ORANGE}# ${RESET}"
+      ps_root_mark=" ${ORANGE}# "
   esac
 
   case $(id -u) in
-    0) PS1="${ps_root_name}${ps_root_at}${ps_root_host}${ps_root_path}$(scm_prompt_info)${ps_root_mark}${RESET}"; # root
+    0) PS1="${ps_root_name}${ps_root_at}${ps_root_host}${ps_root_path}$(scm_prompt_info)${ps_root_mark}${NORMAL}"; # root
         ;;
     *) PS1="${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
         ;;

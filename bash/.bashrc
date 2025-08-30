@@ -132,7 +132,6 @@ OMB_USE_SUDO=true
 # Add wisely, as too many completions slow down shell startup.
 
 completions=(
-	go
 	git
 	ssh
 	rustup
@@ -155,6 +154,7 @@ aliases=(
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	bashmarks
+	colored-man-pages
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -205,11 +205,11 @@ alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 yay'
 command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
 
-# color man
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
-export MANROFFOPT="-P -c"
+# color man. better use plugin colored-man-pages
+# export MANPAGER="less -R --use-color -Dd+r -Du+b"
+# export MANROFFOPT="-P -c"
 
-# complete -C $HOME/go/bin/gocomplete go
+complete -C $HOME/go/bin/gocomplete go
 
 # fuzzy finder. enable fzf
 [ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
