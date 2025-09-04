@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+# пакеты установленные явно
+expac --timefmt='%Y-%m-%d %T' --humansize M '%n\t%m\t%l' $(pacman --query --quiet --explicit) | column --table --separator $'\t' --output-separator $'\t' | sort --key=3 --field-separator=$'\t'

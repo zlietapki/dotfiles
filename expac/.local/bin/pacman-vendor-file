@@ -1,0 +1,58 @@
+#!/bin/env bash 
+
+# Вывести исходное содержимое файла
+
+function usage() {
+    echo "Usage: $0 [-h|--help] <file>"
+    echo "  -h, --help         Display this help message"
+}
+
+function canonicalPath {
+    local path="$1" ; shift
+    if [ -d "$path" ]; then
+        echo "$(cd "$path" || exit ; pwd)"
+    else
+        local b
+        b=$(basename "$path")
+        local p
+        p=$(dirname "$path")
+        echo "$(cd "$p" || exit ; pwd)/$b"
+    fi
+}
+
+# Parse command-line arguments
+while true; do
+  case "$1" in
+    -h | --help )
+        usage
+        exit 0
+        ;;
+    * )
+        break
+        ;;
+  esac
+done
+
+FILE=$1
+FILE=$(canonicalPath "$FILE")
+if [[ -z "$FILE" ]]; then
+    usage
+    exit 0
+fi
+
+if [[ ! -f "$FILE" ]]; then
+    echo "File $FILE not exists"
+    exit 0
+fi
+
+#пакет
+PKG_NAME=$(pacman -Qqo --color never "$FILE") || { echo "Error get package"; exit 1; }
+
+#архитектура версия
+PKG_ARCH=$(expac -Q '%a' "$PKG_NAME") || { echo "Error get arch"; exit 1; }
+PKG_VER=$(expac -Q '%v' "$PKG_NAME") || { echo "Error get ver"; exit 1; }
+
+PKG_TAR="/var/cache/pacman/pkg/${PKG_NAME}-${PKG_VER}-${PKG_ARCH}.pkg.tar.zst"
+
+RES=$(bsdtar --extract --to-stdout --file "$PKG_TAR" ."${FILE}") || { echo "Error extract"; exit 1; }
+echo "$RES"
