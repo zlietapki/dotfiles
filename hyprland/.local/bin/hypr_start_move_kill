@@ -1,0 +1,48 @@
+#!/bin/env bash
+
+# Если приложение найдено по классу, то переносит на текущий workspace или закрывает, если оно уже на активном worspace.
+# Если не найдено, то запускает.
+
+APP=$1
+CLASS=$2
+
+get_pid_by_class() {
+    local class
+    class=$1
+    hyprctl clients -j | jq --arg class "$class" '.[] | select(.class == $class) | .pid'
+}
+
+get_active_workspace_id() {
+    hyprctl monitors -j | jq '.[0].activeWorkspace.id'
+}
+
+get_active_special_workspace_name() {
+    hyprctl monitors -j | jq --raw-output '.[0].specialWorkspace.name'
+}
+
+get_app_workspace_name_by_pid() {
+    local pid
+    pid=$1
+    hyprctl clients -j | jq --argjson pid "$pid" --raw-output '.[] | select(.pid == $pid) | .workspace.name'
+}
+
+app_pid=$(get_pid_by_class "$CLASS")
+if [[ -z $app_pid ]]; then
+    $APP
+    exit 0
+fi
+
+# app found
+active_ws=$(get_active_workspace_id)
+active_spec_ws=$(get_active_special_workspace_name)
+if [[ -n "$active_spec_ws" ]]; then
+    active_ws=$active_spec_ws
+fi
+app_ws=$(get_app_workspace_name_by_pid "$app_pid")
+if [[ "$app_ws" = "$active_ws" ]]; then
+    # already on current workspace - kill
+    kill "$app_pid"
+else
+    # move to current workspace
+    hyprctl dispatch movetoworkspace "$active_ws", pid:"$app_pid"
+fi
