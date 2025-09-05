@@ -1,0 +1,22 @@
+#!/bin/env bash
+
+canonicalPath() {
+    local path="$1" ; shift
+    if [ -d "$path" ]; then
+        echo "$(cd "$path" || exit ; pwd)"
+    else
+        local b
+        b=$(basename "$path")
+        local p
+        p=$(dirname "$path")
+        echo "$(cd "$p" || exit ; pwd)/$b"
+    fi
+}
+
+FILE=$1
+FILE=$(canonicalPath "$FILE")
+if [[ -z "$FILE" ]]; then
+    exit 1
+fi
+
+pacman-vendor-file "$FILE" | diff --color=auto - "$FILE"

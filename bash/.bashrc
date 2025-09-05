@@ -192,8 +192,6 @@ unset CDPATH # disable show path on `cd`
 # ██║ ╚═╝ ██║   ██║   
 # ╚═╝     ╚═╝   ╚═╝   
 alias ll='ls -lav --group-directories-first'
-alias pacman-clean='pacs=$(pacman -Qqtd); [ $? ] || pacman -Rcns $pacs'
-alias hcl='hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl activeworkspace -j | jq .id))]"'
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias rustc='rustc --color=never'
 
@@ -204,6 +202,8 @@ alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 [ -f ~/.config/yay/updatethenupgrade.exp ] && alias updatethenupgrade='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 expect ~/.config/yay/updatethenupgrade.exp'
 alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 yay'
 command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
+alias journalctl="journalctl -o short-iso"
+alias sudo='sudo ' # позволяет вызывать `sudo ll`
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
