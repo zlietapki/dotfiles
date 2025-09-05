@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+# переключается на workspace, если он существует.
+# 
+# USAGE: 
+#   hypr_toggle_ws_if_exists special:codium
+#
+# нужно для asddoc_rofi: 
+# открытие первого документа создает workspace spicial:code и фокусирует его автоматом, а открытие второго документа уже не переносит фокус.
+# Если же переносить фокус всегда `hyprctl workspace special:code` то окно с документом еще не успевает создаться, а открытие пустого special:code создает новое окно с code.
+# В итоге при отрытии первого документа в special:code два окна code: одно - с документом, второе - пустое.
+
+WSNAME=$1
+if [[ -z "$WSNAME" ]]; then
+    exit 1
+fi
+
+ws_json=$(hyprctl workspaces -j | jq --arg name "$WSNAME" '.[] | select(.name == $name)')
+if [[ -n "$ws_json" ]]; then
+    hyprctl dispatch workspace "$WSNAME"
+fi
