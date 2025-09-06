@@ -51,18 +51,19 @@ if [[ ! -f "$FILE" ]]; then
 fi
 
 # пакет
-PKG_NAME=$(pacman --query --quiet --owns --color never "$FILE") || { echo "Error get package"; exit 1; }
+PKG_NAME=$(pacman -Qqo --color never "$FILE") || { echo "Error get package"; exit 1; }
 
 # архитектура версия
-PKG_ARCH=$(expac --query '%a' "$PKG_NAME") || { echo "Error get arch"; exit 1; }
-PKG_VER=$(expac --query '%v' "$PKG_NAME") || { echo "Error get ver"; exit 1; }
+PKG_ARCH=$(expac -Q '%a' "$PKG_NAME") || { echo "Error get arch"; exit 1; }
+PKG_VER=$(expac -Q '%v' "$PKG_NAME") || { echo "Error get ver"; exit 1; }
 
 # из AUR или нет
 IS_AUR=$(is_aur_package "$PKG_NAME")
 if [[ -n "$IS_AUR" ]]; then
     PKG_TAR="${HOME}/.cache/yay/${PKG_NAME}/${PKG_NAME}-${PKG_VER}-${PKG_ARCH}.pkg.tar.zst"
 else
-    PKG_TAR="/var/cache/pacman/pkg/${PKG_NAME}-${PKG_VER}-${PKG_ARCH}.pkg.tar.zst"
+    PKG_FILENAME=$(expac -S '%f' "$PKG_NAME") # для AUR имя архива так не вытащить
+    PKG_TAR="/var/cache/pacman/pkg/${PKG_FILENAME}"
 fi
 
 RES=$(bsdtar --extract --to-stdout --file "$PKG_TAR" ."${FILE}") || { echo "Error extract"; exit 1; }

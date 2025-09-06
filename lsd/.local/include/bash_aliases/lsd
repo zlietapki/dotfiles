@@ -1,1 +1,3 @@
-alias ll='lsd -la'
+alias ll='HOME=$HOME lsd -la'
+# переопределение $HOME нужно для 'sudo ll'
+# иначе sudo пытается искать конфиги в /root/.config, а там нужные цвета
