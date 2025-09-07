@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+pacman-installed | fzf --exact --layout=reverse-list --preview 'pacman -Qilq {1}' --bind 'enter:execute(pacman -Qilq {1} | less)' \
+    --color='fg:#268bd2' \
+    --color='preview-fg:-1'
