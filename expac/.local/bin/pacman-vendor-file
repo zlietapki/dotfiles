@@ -66,5 +66,5 @@ else
     PKG_TAR="/var/cache/pacman/pkg/${PKG_FILENAME}"
 fi
 
-RES=$(bsdtar --extract --to-stdout --file "$PKG_TAR" ."${FILE}") || { echo "Error extract"; exit 1; }
+RES=$(bsdtar --extract --to-stdout --file "$PKG_TAR" ."${FILE}"$) || { echo "Error extract"; exit 1; }
 echo "$RES"
