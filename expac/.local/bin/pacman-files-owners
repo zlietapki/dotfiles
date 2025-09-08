@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+if [[ -n $1 ]]; then
+    LC_COLLATE=C ls -1A --color=never --group-directories-first --indicator-style=slash | grep $1 | xargs -d $'\n' bash -c 'for arg do echo -ne "$arg\t"; pacman -Qoq "$arg" 2>&1 | tr "\n" " "; echo; done' _ | column --table --separator $'\t' --output-separator $'\t'
+    exit
+fi
+
+LC_COLLATE=C ls -1A --color=never --group-directories-first --indicator-style=slash | xargs -d $'\n' bash -c 'for arg do echo -ne "$arg\t"; pacman -Qoq "$arg" 2>&1 | tr "\n" " "; echo; done' _ | column --table --separator $'\t' --output-separator $'\t'
