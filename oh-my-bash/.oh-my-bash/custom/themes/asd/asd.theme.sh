@@ -1,5 +1,22 @@
 #! bash oh-my-bash.module
 
+ECHO_BASE03="\e[38;2;0;43;54m"
+ECHO_BASE02="\e[38;2;7;54;66m"
+ECHO_BASE01="\e[38;2;88;110;117m"
+ECHO_BASE00="\e[38;2;101;123;131m" # body text / default code / primary content
+ECHO_BASE0="\e[38;2;131;148;150m"
+ECHO_BASE1="\e[38;2;147;161;161m" # comments / secondaty content
+ECHO_BASE2="\e[38;2;238;232;213m" # backgroud highlights
+ECHO_BASE3="\e[38;2;253;246;227m" # backgroud
+ECHO_YELLOW="\e[38;2;181;137;0m"
+ECHO_ORANGE="\e[38;2;203;75;22m"
+ECHO_RED="\e[38;2;220;50;47m"
+ECHO_MAGENTA="\e[38;2;211;54;130m"
+ECHO_VIOLET="\e[38;2;108;113;196m"
+ECHO_BLUE="\e[38;2;38;139;210m"
+ECHO_CYAN="\e[38;2;42;161;152m"
+ECHO_GREEN="\e[38;2;133;153;0m"
+
 # SOLARIZED
 BASE03='\[\e[38;2;0;43;54m\]'
 BASE02='\[\e[38;2;7;54;66m\]'
@@ -27,6 +44,14 @@ SCM_THEME_PROMPT_SUFFIX=""
 SCM_THEME_PROMPT_DIRTY=" $RED✗"
 SCM_THEME_PROMPT_CLEAN=" $GREEN✓"
 SCM_GIT_SHOW_DETAILS="false"
+
+_new_line() {
+    IFS=';' read -sdR -p $'\E[6n' ROW COL # Get cursor position
+    if [[ $COL -ne 1 ]]; then
+      echo "${ECHO_MAGENTA}<NO NEWLINE>\n"
+    fi
+}
+
 
 function _omb_theme_PROMPT_COMMAND() {
   case $HOSTNAME in
@@ -58,10 +83,19 @@ function _omb_theme_PROMPT_COMMAND() {
   esac
 
   case $(id -u) in
-    0) PS1="${ps_root_name}${ps_root_at}${ps_root_host}${ps_root_path}$(scm_prompt_info)${ps_root_mark}${NORMAL}"; # root
-        ;;
-    *) PS1="${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
-        ;;
+    0)
+      PS1="${ps_root_name}${ps_root_at}${ps_root_host}${ps_root_path}$(scm_prompt_info)${ps_root_mark}${NORMAL}"; # root
+      ;;
+    *)
+      # не переносит на новую строку
+      # PS1="${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
+
+      # всегда переносит на новую строку
+      # PS1="$(printf "%$((`tput cols`-1))s\r")${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
+
+      # если нужно ставит пометку <NO NEWLINE> и начинает новую строку
+      PS1="$(_new_line)${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
+      ;;
   esac
 }
 
