@@ -194,7 +194,7 @@ unset CDPATH # disable show path on `cd`
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias rustc='rustc --color=never'
 
-alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"'
+# alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"' # shadowsocks-rust
 alias vpn-brave='brave --proxy-server="socks5://127.0.0.1:1080"'
 alias vpn-chrome='google-chrome-stable --proxy-server="socks5://127.0.0.1:2080"'
 alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
@@ -204,6 +204,7 @@ command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-
 alias journalctl='journalctl -o short-iso'
 alias diff='diff --color'
 alias sudo='sudo ' # позволяет вызывать `sudo ll`
+alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
@@ -219,3 +220,5 @@ complete -C $HOME/go/bin/gocomplete go
 for f in ~/.local/include/bash_aliases/*; do
     source $f;
 done
+
+eval "$(task --completion bash)"

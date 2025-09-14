@@ -30,3 +30,5 @@
 
 [diff]
 	colorMoved = default
+[url "git@gitlab.wildberries.ru:"]
+	insteadOf = https://gitlab.wildberries.ru/
