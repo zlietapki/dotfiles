@@ -45,13 +45,37 @@ SCM_THEME_PROMPT_DIRTY=" $RED✗"
 SCM_THEME_PROMPT_CLEAN=" $GREEN✓"
 SCM_GIT_SHOW_DETAILS="false"
 
+# если нужно ставит пометку <NO NEWLINE> и начинает новую строку
 _new_line() {
-    IFS=';' read -sdR -p $'\E[6n' ROW COL # Get cursor position
+    local COL
+    local ROW
+    IFS=';' read -sdR -p $'\e[6n' ROW COL # Get cursor position
     if [[ $COL -ne 1 ]]; then
       echo "${ECHO_MAGENTA}<NO NEWLINE>\n"
     fi
 }
 
+_repeat_string() {
+  local input_string="$1"
+  local count="$2"
+  printf -v result_string "%*s" "$count" "" # Create a string of 'count' spaces
+  printf "%s\n" "${result_string// /${input_string}}" # Replace spaces with the input string
+}
+
+# курсор внизу терминала
+_to_bottom() {
+  local col
+  local row
+  IFS=';' read -sdR -p $'\e[6n' row col
+  row="${row#*[}"
+
+  local lines
+  lines=$(tput lines) # terminal height
+  if [[ "$row" = 1 ]]; then # если курсор сверху
+#  if [[ "$row" < $lines ]]; then # если курсор не снизу
+    _repeat_string "\n" $(($lines-1))
+  fi
+}
 
 function _omb_theme_PROMPT_COMMAND() {
   case $HOSTNAME in
@@ -93,8 +117,7 @@ function _omb_theme_PROMPT_COMMAND() {
       # всегда переносит на новую строку
       # PS1="$(printf "%$((`tput cols`-1))s\r")${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
 
-      # если нужно ставит пометку <NO NEWLINE> и начинает новую строку
-      PS1="$(_new_line)${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
+      PS1="$(_to_bottom)$(_new_line)${ps_user_name}${ps_user_at}${ps_user_host}${ps_user_path}$(scm_prompt_info)${ps_user_mark}${RESET}";
       ;;
   esac
 }
