@@ -7,9 +7,6 @@
 	email = andrey.zloy@gmail.com
 	name = Andrey Martemianov
 
-[include]
-	path = ~/.config/delta/themes.gitconfig
-
 #[core]
 #	pager = delta
 
