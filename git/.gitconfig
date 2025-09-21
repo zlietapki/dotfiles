@@ -4,7 +4,7 @@
 	ci = commit
 	st = status
 [user]
-	email = andrey.zloy@gmail.com
+	email = martemyanov.a11@rwb.ru
 	name = Andrey Martemianov
 
 #[core]
