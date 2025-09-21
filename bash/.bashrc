@@ -205,6 +205,7 @@ alias journalctl='journalctl -o short-iso'
 alias diff='diff --color'
 alias sudo='sudo ' # позволяет вызывать `sudo ll`
 alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
+alias lg='lazygit'
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
@@ -222,3 +223,16 @@ for f in ~/.local/include/bash_aliases/*; do
 done
 
 eval "$(task --completion bash)"
+
+# systemctl
+alias sct='systemctl'
+if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then # completion for sct
+    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl sct
+fi
+
+# изменить фон nthvbyfkf при sudo
+# function sudo() {
+#     printf '\e[#P\x1b]11;blue\x1b\\'
+#     builtin command sudo "$@"
+#     printf '\e[#Q'
+# }
