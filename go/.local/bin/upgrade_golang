@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# # Define the installation directory
+INFO="/tmp/go_versions"
+
+get_current_go_version() {
+    /usr/local/go/bin/go version 2>/dev/null | grep -oP 'go\d+\.\d+(\.\d+)?'
+}
+
+download_info() {
+    curl -s 'https://go.dev/dl/?mode=json' --output "$INFO" || exit
+}
+
+get_version() {
+    cat "$INFO" | jq --raw-output '.[0].files | .[] | select(.arch == "amd64" and .os == "linux") | .version'
+}
+
+get_filename() {
+    cat "$INFO" | jq --raw-output '.[0].files | .[] | select(.arch == "amd64" and .os == "linux") | .filename'
+}
+
+get_sha256() {
+    cat "$INFO" | jq --raw-output '.[0].files | .[] | select(.arch == "amd64" and .os == "linux") | .sha256'
+}
+
+download_go() {
+    wget "https://go.dev/dl/$1" -O "/tmp/$1" || exit 1
+}
+
+check_sha256() {
+    local filename
+    filename=$1
+    local expected_sha
+    expected_sha=$2
+
+    calculated_sha256=$(sha256sum "/tmp/$filename" | awk '{print $1}')
+    if [[ "$calculated_sha256" != "$expected_sha" ]]; then
+        echo "Incorrect sha256"
+        exit
+    else
+        echo "sha256 ok"
+    fi
+}
+
+current_version=$(get_current_go_version)
+download_info
+latest_ver=$(get_version)
+filename=$(get_filename)
+sha=$(get_sha256)
+
+current_version=${current_version:=not installed}
+echo "$current_version - current version"
+echo "$latest_ver - latest version"
+
+if [[ "$current_version" == "$latest_ver" ]]; then
+    echo "Already installed latest version $current_version"
+    exit
+fi
+
+while true; do
+    read -p "Install $latest_ver? (y/n): " yn
+    case $yn in
+        [Yy]* ) echo "Proceeding..."; break;;
+        [Nn]* ) echo "Exiting..."; exit;;
+        * ) echo "Invalid input. Please answer 'y' or 'n'.";;
+    esac
+done
+
+download_go "$filename"
+check_sha256 "$filename" "$sha"
+
+if [ -d "/usr/local/go" ]; then
+    echo "Removing existing Go installation from /usr/local/go..."
+    sudo rm -rf "/usr/local/go"
+fi
+
+echo "Extracting Go to /usr/local/go..."
+sudo tar -C /usr/local -xzf "/tmp/$filename" || exit
+
+echo "Go $latest_ver installed successfully."

@@ -1,8 +1,27 @@
 //* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
 
 {
-    // HYPRLAND WORKSPACES. CHOOSE as desired and place on waybar configs
-    // CIRCLES Style
+    "custom/cpuhistory": {
+        "format": " {}",
+        "exec": "~/.config/waybar/scripts/cpu_history.py -d 20",
+        "interval": 1,
+        "return-type": "json",
+        "on-click": "~/.config/waybar/scripts/cpu_history.py toggle"
+    },
+    // "custom/my": {
+    //     "exec": "~/.config/waybar/scripts/my.py -d 60",
+    //     "format": " {}",
+    //     "interval": 1,
+    //     "return-type": "json",
+    //     "on-click": "~/.config/waybar/scripts/my.py toggle"
+    // },
+    "custom/vpn": {
+        "format": "  VPN",
+        "exec": "echo '{\"class\": \"connected\"}'",
+        "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+        "return-type": "json",
+        "interval": 2
+    },
     "hyprland/workspaces": {
         "active-only": false,
         "all-outputs": true, 
@@ -310,7 +329,7 @@
         "format": "{}",
         "format-en": "🇺🇸",
         "format-ru": "🇷🇺",
-        "on-click": "hyprctl switchxkblayout aone-varmilo-keyboard next"
+        "on-click": "hyprctl switchxkblayout keychron--keychron-link--keyboard next"
     },
         
     "hyprland/submap": {

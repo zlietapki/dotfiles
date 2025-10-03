@@ -204,7 +204,8 @@ command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-
 alias journalctl='journalctl -o short-iso'
 alias diff='diff --color'
 alias sudo='sudo ' # позволяет вызывать `sudo ll`
-alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
+# alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
+alias WBopenvpn='sudo openvpn --fast-io --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias lg='lazygit'
 
 # color man. better use plugin colored-man-pages

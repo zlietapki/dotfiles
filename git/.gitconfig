@@ -3,29 +3,17 @@
 	br = branch
 	ci = commit
 	st = status
+	wbcommit = "!wb-generate-template; git commit"
 [user]
 	email = martemyanov.a11@rwb.ru
 	name = Andrey Martemianov
 
-#[core]
-#	pager = delta
-
-#[interactive]
-#	diffFilter = delta --color-only
-
-#[delta]
-#	features = GitHub
-#
-#	navigate = true
-#	side-by-side = true
-#	line-numbers = true
-#	minus-style = "#e6ffc8" "#d9291c"
-#	plus-style = "#252e04" "#85c040"
-
-#[merge]
-#	conflictstyle = diff3
-
 [diff]
 	colorMoved = default
+	wsErrorHighlight = all
 [url "git@gitlab.wildberries.ru:"]
 	insteadOf = https://gitlab.wildberries.ru/
+[push]
+	autoSetupRemote = true
+[commit]
+	template = ~/.git-commit-template

@@ -4,14 +4,17 @@
 	"position": "bottom",
 
 	"modules-left": [
-		"custom/swaync",
-		"group/motherboard"
+		"custom/cpuhistory",
+        "memory",
+        "temperature#cpu",
+        "temperature#nvme0",
+        "temperature#nvme1",
+		"disk",
+		"custom/vpn"
 	],
-	
 	"modules-center": [
 		"hyprland/workspaces#roman"
 	],
-
 	"modules-right": [
 		"hyprland/language",
 		"tray",
