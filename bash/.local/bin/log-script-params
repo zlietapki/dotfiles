@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+LOG_FILE="/tmp/log-script-params.log"
+
+# Log the script name and all its arguments
+echo "$(date): '$0' called with parameters: '$*'" >> "$LOG_FILE"
+notify-send "$0" "called with parameters: '$*'"
+# /usr/bin/xdg-open "$@" # проксировать вызов xdg-open
