@@ -83,10 +83,7 @@ if [[ $PRINT_ONLY == 1 ]]; then
     exit;
 fi
 
-# check deps: $ED
-if ! type "$ED" &>/dev/null; then
-    log_err "Editor $ED not installed"
+$ED "$doc" || (
+    log_err "Error running '$ED $doc'"
     exit 1
-fi
-
-$ED "$doc"
+)
