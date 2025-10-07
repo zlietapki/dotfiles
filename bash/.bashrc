@@ -213,6 +213,7 @@ alias sudo='sudo ' # позволяет вызывать `sudo ll`
 # alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias WBopenvpn='sudo openvpn --fast-io --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias lg='lazygit'
+alias y='yazi'
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
