@@ -65,7 +65,10 @@ function _omb_theme_PROMPT_COMMAND() {
       ps_user_at="";
       ps_user_host="";
       ps_user_path="${BLUE}\w";
-      ps_user_mark=" ${CYAN}> ";
+      ps_user_mark=" ${GREEN}❯ ";
+      # ps_user_mark=" ${CYAN}❱❱❱ ";
+      # ps_user_mark=" ${GREEN} ";
+      # ps_user_mark=" ${GREEN}󰁕 ";
 
       ps_root_name="${RED}\u";
       ps_root_at="";
