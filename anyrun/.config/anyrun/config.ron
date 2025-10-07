@@ -7,7 +7,6 @@ Config(
   x: Fraction(0.5),
 
   // The vertical position, works the same as `x`
-  // y: Absolute(10),
   y: Fraction(0.5),
 
   // The width of the runner
@@ -29,7 +28,7 @@ Config(
   hide_plugin_info: true,
 
   // Close window when a click outside the main box is received
-  close_on_click: true,
+  // close_on_click: true,
 
   // Show search results immediately when Anyrun starts
   show_results_immediately: true,
