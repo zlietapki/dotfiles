@@ -213,7 +213,6 @@ alias sudo='sudo ' # позволяет вызывать `sudo ll`
 # alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias WBopenvpn='sudo openvpn --fast-io --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias lg='lazygit'
-alias y='yazi'
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
@@ -251,3 +250,13 @@ fi
 load.env() {
 	(set -a; . <(cat .env | sed -e 's/\\n/\n/g'); set +a; $@)
 }
+
+function y() { #yazi
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+eval "$(zoxide init bash)" # for yazi

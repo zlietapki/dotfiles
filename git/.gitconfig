@@ -5,9 +5,9 @@
 	st = status
 	wbcommit = "!wb-generate-template; git commit"
 [user]
+    signingKey = ~/.ssh/id_ed25519.pub
 	email = martemyanov.a11@rwb.ru
 	name = Andrey Martemianov
-
 [diff]
 	colorMoved = default
 	wsErrorHighlight = all
@@ -17,3 +17,8 @@
 	autoSetupRemote = true
 [commit]
 	template = ~/.git-commit-template
+	gpgsign = true
+[core]
+	sshCommand = "ssh -i ~/.ssh/id_ed25519 -F /dev/null"
+[gpg]
+  format = ssh
