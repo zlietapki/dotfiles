@@ -260,3 +260,5 @@ function y() { #yazi
 }
 
 eval "$(zoxide init bash)" # for yazi
+
+shopt -u cdable_vars # не показывать имена переменных при cd <tab>
