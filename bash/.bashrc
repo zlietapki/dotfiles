@@ -244,13 +244,6 @@ fi
 #     printf '\e[#Q'
 # }
 
-# загрузить переменный окружения из .env и запустить приложение
-# пример:
-#  load.env go run ./cmd/main.go
-load.env() {
-	(set -a; . <(cat .env | sed -e 's/\\n/\n/g'); set +a; $@)
-}
-
 function y() { #yazi
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
