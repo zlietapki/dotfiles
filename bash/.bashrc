@@ -255,3 +255,6 @@ function y() { #yazi
 eval "$(zoxide init bash)" # for yazi
 
 shopt -u cdable_vars # не показывать имена переменных при cd <tab>
+
+# цветной stderr
+colorstderr()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1 # red stdout https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr
