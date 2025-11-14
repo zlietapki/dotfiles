@@ -4,6 +4,7 @@ set afterends # ctrl+right stops at the end of word
 set autoindent # autospaces on new line
 set tabsize 4 # размер таба
 set tabstospaces # конвертировать табы в пробелы
+set softwrap # переносить длинные строки
 
 include "/usr/share/nano/go.nanorc"
 include "/usr/share/nano/json.nanorc"

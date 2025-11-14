@@ -17,8 +17,10 @@
 	autoSetupRemote = true
 [commit]
 	template = ~/.git-commit-template
-	gpgsign = true
+	gpgsign = true # цифровая подпись коммита
 [core]
-	sshCommand = "ssh -i ~/.ssh/id_ed25519 -F /dev/null"
+	sshCommand = "ssh -i ~/.ssh/id_ed25519 -F /dev/null" # add .pub to gitlab/profile/ssh
 [gpg]
   format = ssh
+[pager]
+	branch = false # показывать git br простым списком в терминале, а не в less

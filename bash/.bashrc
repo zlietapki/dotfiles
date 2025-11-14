@@ -138,7 +138,7 @@ OMB_USE_SUDO=true
 # Add wisely, as too many completions slow down shell startup.
 
 completions=(
-	git
+	# git
 	ssh
 	rustup
 	cargo
