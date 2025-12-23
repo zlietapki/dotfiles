@@ -5,12 +5,11 @@
 
 	"modules-left": [
 		"custom/cpuhistory",
-        "memory",
-        "temperature#cpu",
-        "temperature#nvme0",
-        "temperature#nvme1",
-		"disk",
-		"custom/vpn"
+    "memory",
+    "temperature#cpu",
+    "temperature#nvme0",
+    "temperature#nvme1",
+		"disk"
 	],
 	"modules-center": [
 		"hyprland/workspaces#roman"
