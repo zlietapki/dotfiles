@@ -1,0 +1,36 @@
+[mgr]
+ratio          = [1, 5, 10]
+sort_by        = "natural"
+linemode       = "none"
+show_hidden    = true
+title_format   = "y: {cwd}"
+
+[preview]
+image_filter    = "nearest"
+
+[confirm]
+# trash
+trash_title 	= "Trash {n} selected file{s}?"
+#trash_origin	= "top-left"
+
+# delete
+delete_title 	= "DELETE {n} selected file{s}?"
+
+[opener]
+edit = [
+	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+]
+open = [
+	{ run = 'xdg-open "$1"', orphan = true, desc = "Open", for = "linux" },
+]
+reveal = [
+	{ run = 'xdg-open "$(dirname "$1")"', orphan = true, desc = "Reveal", for = "linux" },
+	{ run = '''clear; exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
+]
+extract = [
+	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+]
+play = [
+	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+]

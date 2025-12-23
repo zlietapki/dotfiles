@@ -1,0 +1,3 @@
+[mgr]
+preview_hovered = { underline = false }
+cwd = { fg = "#93a1a1" }
