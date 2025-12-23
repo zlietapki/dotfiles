@@ -232,9 +232,9 @@ done
 eval "$(task --completion bash)"
 
 # systemctl
-alias sct='systemctl'
+alias ctl='systemctl'
 if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then # completion for sct
-    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl sct
+    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl ctl
 fi
 
 # изменить фон при sudo
