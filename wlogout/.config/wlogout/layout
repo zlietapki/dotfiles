@@ -1,36 +1,28 @@
+
 {
-    "label" : "lock",
-    "action" : "swaylock",
-    "text" : "Lock",
-    "keybind" : "l"
-}
-{
-    "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
-}
-{
-    "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
-    "text" : "Logout",
-    "keybind" : "e"
-}
-{
-    "label" : "shutdown",
-    "action" : "systemctl poweroff",
-    "text" : "Shutdown",
-    "keybind" : "s"
-}
-{
-    "label" : "suspend",
-    "action" : "systemctl suspend",
+    "label" : "elem1",
+    "action" : "swaylock -f && systemctl suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
+
 {
-    "label" : "reboot",
-    "action" : "systemctl reboot",
+    "label" : "elem3",
+    "action" : "uwsm stop",
+    "text" : "Logout",
+    "keybind" : "l"
+}
+
+{
+    "label" : "elem5",
+    "action" : "shutdown -h now",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+
+{
+    "label" : "elem6",
+    "action" : "reboot",
     "text" : "Reboot",
     "keybind" : "r"
 }
