@@ -6,7 +6,7 @@ show_hidden    = true
 title_format   = "y: {cwd}"
 
 [preview]
-image_filter    = "nearest"
+image_filter    = "lanczos3"
 
 [confirm]
 # trash

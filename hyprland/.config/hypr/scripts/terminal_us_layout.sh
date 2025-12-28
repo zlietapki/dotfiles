@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Ждёт когда откроется окно класса terminal и включит US раскладку.
+# Ждёт когда откроется окно класса my.terminal и включит US раскладку.
 # запоминает раскладку до включения US и восстанавливает её после выхода из терминала
 
 # run once
-PID_FILE="${XDG_RUNTIME_DIR}/hyprland_us_layout.pid"
+PID_FILE="${XDG_RUNTIME_DIR}/terminal_us_layout.pid"
+TERMINAL_CLASS="my.terminal"
 
 cleanup() {
     rm -f "$PID_FILE"
@@ -37,14 +38,14 @@ set_keymap() {
 
 activewindow() {
     # WINDOWCLASS,WINDOWTITLE
-    # activewindow>>terminal,bash 123.bash
+    # activewindow>>my.terminal,bash 123.bash
 
     local params_str
     params_str="${1#activewindow>>}" # remove prefix
     local params_arr
     IFS="," read -ra params_arr <<< "$params_str" # , separator
 
-    if [[ ${params_arr[0]} = "terminal" ]]; then
+    if [[ ${params_arr[0]} = "$TERMINAL_CLASS" ]]; then
         PREV_KEYMAP=$(get_keymap)
         RESTORE_KEYMAP=1
         set_keymap '0' # включить раскладку 0

@@ -1,0 +1,27 @@
+window-show-tab-bar = always
+theme = iTerm2 Solarized Dark
+
+font-family = JetBrainsMonoNL Nerd Font Mono
+
+cursor-style = "block"
+cursor-style-blink = false
+
+shell-integration-features = no-cursor, ssh-env
+
+keybind = ctrl+page_up=unbind
+keybind = ctrl+page_down=unbind
+keybind = shift+page_up=unbind
+keybind = shift+page_down=unbind
+
+keybind = ctrl+shift+page_up=scroll_page_up
+keybind = ctrl+shift+page_down=scroll_page_down
+
+keybind = ctrl+shift+up=scroll_page_lines:-1
+keybind = ctrl+shift+down=scroll_page_lines:1
+
+keybind = ctrl+shift+[=jump_to_prompt:-1
+keybind = ctrl+shift+]=jump_to_prompt:1
+
+keybind = ctrl+shift+A=select_all
+
+mouse-scroll-multiplier = 5
