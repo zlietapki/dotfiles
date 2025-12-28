@@ -67,7 +67,7 @@ if ! type rofi &>/dev/null; then
     exit 1
 fi
 
-selected_entered=$(get_docs "$DIR" | rofi -p asddoc: -matching prefix,normal -dmenu -format 's F' 2>/dev/null) || exit 2
+selected_entered=$(get_docs "$DIR" | rofi -p asddoc: -matching normal -dmenu -format 's F' 2>/dev/null) || exit 2
 
 IFS=' ' read -r selected entered <<< "$selected_entered"
 entered=$(echo "$entered" | tr -d "'") # убрать кавычки
