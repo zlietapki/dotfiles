@@ -37,11 +37,7 @@ done
 
 		if [ "$LS_COLORS" = "" ]; then
 			echo empty or broken "$DIRCOLORS_FILE". Check \'dircolors "$DIRCOLORS_FILE"\'
-		# else
-			# echo "$DIRCOLORS_FILE" loaded
 		fi
-	# else
-		# echo Cant read "$DIRCOLORS_FILE"
 	fi
 )
 
