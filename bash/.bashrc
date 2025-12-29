@@ -30,15 +30,20 @@ for _ in $(seq 2 $(tput lines)); do # seq FIRST LAST. FIRST is 2 to skip one lin
 done
 
 # LS_COLORS for ls, tree
-if [ -f ~/.dircolors ]; then
-	eval $(dircolors ~/.dircolors)
+(
+	DIRCOLORS_FILE=~/.dircolors
+	if [ -r "$DIRCOLORS_FILE" ]; then
+		eval $(dircolors "$DIRCOLORS_FILE")
 
-	if [ "$LS_COLORS" = "" ]; then
-		echo empty or broken ~/.dircolors. Check \'dircolors ~/.dircolors\'
-#	else
-#		echo ~/.dircolors loaded
+		if [ "$LS_COLORS" = "" ]; then
+			echo empty or broken "$DIRCOLORS_FILE". Check \'dircolors "$DIRCOLORS_FILE"\'
+		# else
+			# echo "$DIRCOLORS_FILE" loaded
+		fi
+	# else
+		# echo Cant read "$DIRCOLORS_FILE"
 	fi
-fi
+)
 
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
@@ -208,6 +213,11 @@ unset CDPATH # disable show path on `cd`
 # ██║╚██╔╝██║  ╚██╔╝  
 # ██║ ╚═╝ ██║   ██║   
 # ╚═╝     ╚═╝   ╚═╝   
+
+alias ls='ls --group-directories-first --color=auto'
+alias diff='diff --color'
+alias sudo='sudo ' # позволяет вызывать `sudo ll`
+
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias rustc='rustc --color=never'
 
@@ -219,8 +229,6 @@ alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1
 alias vpn-wget='http_proxy=http://127.0.0.1:2080/ https_proxy=http://127.0.0.1:2080/ wget'
 command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
 alias journalctl='journalctl -o short-iso'
-alias diff='diff --color'
-alias sudo='sudo ' # позволяет вызывать `sudo ll`
 # alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias WBopenvpn='sudo openvpn --fast-io --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
 alias lg='lazygit'
