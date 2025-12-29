@@ -29,6 +29,17 @@ for _ in $(seq 2 $(tput lines)); do # seq FIRST LAST. FIRST is 2 to skip one lin
 	echo
 done
 
+# LS_COLORS for ls, tree
+if [ -f ~/.dircolors ]; then
+	eval $(dircolors ~/.dircolors)
+
+	if [ "$LS_COLORS" = "" ]; then
+		echo empty or broken ~/.dircolors. Check \'dircolors ~/.dircolors\'
+#	else
+#		echo ~/.dircolors loaded
+	fi
+fi
+
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
