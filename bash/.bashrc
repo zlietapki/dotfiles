@@ -29,18 +29,6 @@ for _ in $(seq 2 $(tput lines)); do # seq FIRST LAST. FIRST is 2 to skip one lin
 	echo
 done
 
-# LS_COLORS for ls, tree
-(
-	DIRCOLORS_FILE=~/.dircolors
-	if [ -r "$DIRCOLORS_FILE" ]; then
-		eval $(dircolors "$DIRCOLORS_FILE")
-
-		if [ "$LS_COLORS" = "" ]; then
-			echo empty or broken "$DIRCOLORS_FILE". Check \'dircolors "$DIRCOLORS_FILE"\'
-		fi
-	fi
-)
-
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
@@ -182,7 +170,7 @@ plugins=(
 #      plugins+=(tmux-autoattach)
 #  fi
 
-source "$OSH"/oh-my-bash.sh
+# source "$OSH"/oh-my-bash.sh
 unset CDPATH # disable show path on `cd`
 
 # Preferred editor for local and remote sessions
@@ -210,9 +198,20 @@ unset CDPATH # disable show path on `cd`
 # ██║ ╚═╝ ██║   ██║   
 # ╚═╝     ╚═╝   ╚═╝   
 
-alias ls='ls --group-directories-first --color=auto'
+# не показывать имена переменных при cd <tab>
+shopt -u cdable_vars
+
+if command -v vivid &>/dev/null; then
+	export LS_COLORS=$(vivid generate solarized-dark)
+fi
+
+# Aliases
+
+alias ls='LC_COLLATE=C ls --group-directories-first --color=auto'
 alias diff='diff --color'
 alias sudo='sudo ' # позволяет вызывать `sudo ll`
+alias ctl='systemctl'
+alias journalctl='journalctl -o short-iso'
 
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
 alias rustc='rustc --color=never'
@@ -220,34 +219,40 @@ alias rustc='rustc --color=never'
 # alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"' # shadowsocks-rust
 alias vpn-brave='brave --proxy-server="socks5://127.0.0.1:1080"'
 alias vpn-chrome='google-chrome-stable --proxy-server="socks5://127.0.0.1:2080"'
-alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 yay'
 alias vpn-wget='http_proxy=http://127.0.0.1:2080/ https_proxy=http://127.0.0.1:2080/ wget'
-command -v yt-dlp 2>&1>/dev/null && alias yt-dlp='command yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
-alias journalctl='journalctl -o short-iso'
-# alias WBopenvpn='sudo openvpn --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
-alias WBopenvpn='sudo openvpn --fast-io --config ~/wb/WB.ovpn --askpass ~/wb/keypass --script-security 3 --up $HOME/wb/ovpn_up.sh --down $HOME/wb/ovpn_down.sh'
+
+if command -v yt-dlp &>/dev/null; then
+	alias yt-dlp='yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
+fi
+
+alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 alias lg='lazygit'
+
+# incluide my aliases
+for f in ~/.local/include/bash_aliases/*; do
+	source $f;
+done
+
+if command -v dust &>/dev/null; then
+	alias dust='dust --reverse'
+fi
 
 # color man. better use plugin colored-man-pages
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
 # export MANROFFOPT="-P -c"
 
-complete -C $HOME/go/bin/gocomplete go
+# Completions
 
 # fuzzy finder. enable fzf
 [ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
 [ -f ~/.config/fzf/key-bindings.bash ] && source ~/.config/fzf/key-bindings.bash
 
-# incluide my aliases
-for f in ~/.local/include/bash_aliases/*; do
-    source $f;
-done
-
 eval "$(task --completion bash)"
 
+complete -C $HOME/go/bin/gocomplete go
+
 # systemctl
-alias ctl='systemctl'
 if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then # completion for sct
     . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl ctl
 fi
@@ -268,8 +273,6 @@ function y() { #yazi
 }
 
 eval "$(zoxide init bash)" # for yazi
-
-shopt -u cdable_vars # не показывать имена переменных при cd <tab>
 
 # цветной stderr
 colorstderr()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1 # red stdout https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr
