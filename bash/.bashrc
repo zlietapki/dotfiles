@@ -49,7 +49,9 @@ if command -v vivid &>/dev/null; then
 	export LS_COLORS=$(vivid generate one-dark)
 fi
 
-eval "$(starship init bash)"
+if command -v starship &>/dev/null; then
+	eval "$(starship init bash)"
+fi
 
 # Aliases
 
