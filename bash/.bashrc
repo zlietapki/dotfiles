@@ -55,10 +55,35 @@ fi
 
 # Aliases
 
-alias ls='LC_COLLATE=C ls --group-directories-first --color=auto'
+if command -v eza &>/dev/null; then
+	# ls ll aliases for eza
+	alias ls='eza --all --group-directories-first'
+	ll() {
+		if [[ $1 = '-t' ]]; then # ll -t - sort by modified
+			shift
+			eza --long --all --group-directories-first --time-style=long-iso --git-repos-no-status --sort=modified $@
+		else
+			eza --long --all --group-directories-first --time-style=long-iso --git-repos-no-status $@
+		fi
+	}
+	# eza completions for ls ll
+	if [[ -r /usr/share/bash-completion/completions/eza ]]; then
+    . /usr/share/bash-completion/completions/eza && complete -F _eza eza ll ls
+	fi
+else
+	# regular ls ll
+	alias ls='LC_COLLATE=C ls -A --group-directories-first --color=auto'
+	alias ll='LC_COLLATE=C ls -lA --group-directories-first --color=auto'
+fi
+
 alias diff='diff --color'
 alias sudo='sudo ' # позволяет вызывать `sudo ll`
+
 alias ctl='systemctl'
+if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then
+    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl ctl
+fi
+
 alias journalctl='journalctl -o short-iso'
 
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
@@ -75,7 +100,6 @@ if command -v yt-dlp &>/dev/null; then
 fi
 
 alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
-alias lg='lazygit'
 
 # incluide my aliases
 for f in ~/.local/include/bash_aliases/*; do
@@ -83,26 +107,24 @@ for f in ~/.local/include/bash_aliases/*; do
 done
 
 if command -v dust &>/dev/null; then
-	alias dust='dust --reverse'
+	alias du='\dust --reverse'
+	alias dust='\dust --reverse'
 fi
 
 # color man. better use oh-my-bash plugin 'colored-man-pages'
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 
-# Completions
-
 # fuzzy finder. enable fzf
 [ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
 [ -f ~/.config/fzf/key-bindings.bash ] && source ~/.config/fzf/key-bindings.bash
 
-eval "$(task --completion bash)"
+if command -v task &>/dev/null; then
+	eval "$(task --completion bash)"
+fi
 
-complete -C $HOME/go/bin/gocomplete go
-
-# systemctl
-if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then # completion for sct
-    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl ctl
+if [ -r $HOME/go/bin/gocomplete ]; then
+	complete -C $HOME/go/bin/gocomplete go
 fi
 
 # сохранять текущую папку при выходе из yazi
@@ -116,7 +138,10 @@ if command -v yazi &>/dev/null; then
 	}
 fi
 
-eval "$(zoxide init bash)" # for yazi
+if command -v zoxide &>/dev/null; then
+	eval "$(zoxide init bash)"
+	alias cd='z'
+fi
 
 # цветной stderr
 colorstderr()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1 # red stdout https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr
