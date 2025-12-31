@@ -18,5 +18,10 @@ use = "yazi-rs/plugins:piper"
 rev = "8f1d971"
 hash = "64713dcd74daf9ec644883a5895e5d1"
 
+[[plugin.deps]]
+use = "uhs-robert/sshfs"
+rev = "75a025c"
+hash = "e1cebecfee70daef1f97aa083209340c"
+
 [flavor]
 deps = []

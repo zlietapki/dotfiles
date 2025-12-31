@@ -1,6 +1,7 @@
 require("full-border"):setup() -- рамка вокруг
 require("folder-rules"):setup() -- сортировка по времени для Downloads
 require("toggle-pane"):entry("min-parent") -- прятать parent pane при старте, но можно включить кнопкой "|"
+require("sshfs"):setup() -- sshfs
 
 -- Show user/group of files in status bar
 Status:children_add(function()

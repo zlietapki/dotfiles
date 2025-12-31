@@ -102,6 +102,11 @@ on   = "<S-Down>"
 run  = [ "toggle", "arrow next" ]
 desc = "Select file"
 
+[[mgr.prepend_keymap]]
+on = [ "~" ]
+run = "cd ~"
+desc = "Go home"
+
 [[input.prepend_keymap]]
 on   = "<Esc>"
 run  = "close"
@@ -111,3 +116,100 @@ desc = "Cancel input"
 [[mgr.prepend_keymap]]
 on  = "y"
 run = [ 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ]
+
+# disable maps
+[[mgr.prepend_keymap]]
+on  = [ "g", "h" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-[>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-c>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-z>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "k" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "j" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-u>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-d>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-b>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<C-f>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<S-PageUp>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "<S-PageDown>" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "g", "g" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "G" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "h" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "l" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "H" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "L" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "o" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "O" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "d" ]
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on  = [ "D" ]
+run = "noop"
+
+
+# sshfs
+[[mgr.prepend_keymap]]
+on = ["M"]
+run = "plugin sshfs -- menu"
+desc = "Open SSHFS options"
+
