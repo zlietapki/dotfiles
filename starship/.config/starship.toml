@@ -10,12 +10,12 @@ error_symbol = "[✗](red)"
 style	= 'bold blue'
 truncation_length = 0
 truncation_symbol = "…/"
-truncate_to_repo = true # обрезать путь, если в git
-repo_root_format = '[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
+truncate_to_repo = false # обрезать путь, если в git
+# repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
 repo_root_style = "bold violet"
 
 [git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
+format = '[$branch(:$remote_branch)]($style) '
 style = "yellow"
 
 [git_status]
