@@ -1,3 +1,5 @@
 [mgr]
-preview_hovered = { underline = false }
-cwd = { fg = "#93a1a1" }
+marker_copied   = { fg = "#65d101",  bg = "#65d101" }
+marker_cut      = { fg = "#dc322f",    bg = "#dc322f" }
+marker_marked   = { fg = "#2aa198",   bg = "#2aa198" }
+marker_selected = { fg = "#eed704", bg = "#eed704" }

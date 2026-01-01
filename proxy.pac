@@ -130,6 +130,9 @@ function FindProxyForURL(url, host) {
         return "SOCKS 127.0.0.1:2080";
     }
 
+    // if (shExpMatch(url,"docs.rs/*")) {
+    //     return "SOCKS 127.0.0.1:2080";
+    // }
 
     return "DIRECT";
 }
