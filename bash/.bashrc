@@ -87,7 +87,6 @@ fi
 alias journalctl='journalctl -o short-iso'
 
 alias swaync-reload='swaync-client --reload-css; swaync-client --reload-config'
-alias rustc='rustc --color=never'
 
 # alias vpn='sslocal -b "0.0.0.0:1080" --server-url "$(cat ~/.config/sirius_vpn/ger)"' # shadowsocks-rust
 alias vpn-brave='brave --proxy-server="socks5://127.0.0.1:1080"'
@@ -116,8 +115,8 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 
 # fuzzy finder. enable fzf
-[ -f ~/.config/fzf/completion.bash ] && source ~/.config/fzf/completion.bash
-[ -f ~/.config/fzf/key-bindings.bash ] && source ~/.config/fzf/key-bindings.bash
+[ -r /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
+[ -r /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 
 if command -v task &>/dev/null; then
 	eval "$(task --completion bash)"
