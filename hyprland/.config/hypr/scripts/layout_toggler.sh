@@ -4,8 +4,10 @@
 # запоминает раскладку до включения US и восстанавливает её после выхода из терминала
 
 # run once
-PID_FILE="${XDG_RUNTIME_DIR}/terminal_us_layout.pid"
-TERMINAL_CLASS="my.terminal"
+PID_FILE="${XDG_RUNTIME_DIR}/layout_toggler.pid"
+TERMINAL_CLASS="my.terminal" 
+# my.terminal - ghostty
+# mpv - mpv
 
 cleanup() {
     rm -f "$PID_FILE"
@@ -19,9 +21,6 @@ echo $$ > "$PID_FILE"
 
 errcho(){ >&2 echo "$@"; }
 
-RESTORE_KEYMAP=0
-PREV_KEYMAP=0
-
 get_keymap() {
     local keymap
     keymap=$(hyprctl -j devices | jq -r '.keyboards | .[] | select(.main == true) | .active_keymap')
@@ -32,9 +31,13 @@ get_keymap() {
     fi
 }
 
+# switch layout
 set_keymap() {
-    hyprctl switchxkblayout "$(hyprctl -j devices | jq -r '.keyboards | .[] | select(.main == true) | .name')" "$1" &>/dev/null # включить раскладку 0
+    hyprctl switchxkblayout "$(hyprctl -j devices | jq -r '.keyboards | .[] | select(.main == true) | .name')" "$1" &>/dev/null
 }
+
+RESTORE_KEYMAP=0
+PREV_KEYMAP=0
 
 activewindow() {
     # WINDOWCLASS,WINDOWTITLE
@@ -48,7 +51,7 @@ activewindow() {
     if [[ ${params_arr[0]} = "$TERMINAL_CLASS" ]]; then
         PREV_KEYMAP=$(get_keymap)
         RESTORE_KEYMAP=1
-        set_keymap '0' # включить раскладку 0
+        set_keymap '0' # switch to default
     else
         if [[ "$RESTORE_KEYMAP" == 1 ]]; then
             RESTORE_KEYMAP=0
