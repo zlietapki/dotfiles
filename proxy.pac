@@ -130,6 +130,15 @@ function FindProxyForURL(url, host) {
         return "SOCKS 127.0.0.1:2080";
     }
 
+    if (shExpMatch(url,"*myheritage.com/*")) {
+        return "SOCKS 127.0.0.1:2080";
+    }
+
+    if (shExpMatch(url,"*.mhcache.com/*")) {
+        return "SOCKS 127.0.0.1:2080";
+    }
+
+
     // if (shExpMatch(url,"docs.rs/*")) {
     //     return "SOCKS 127.0.0.1:2080";
     // }
