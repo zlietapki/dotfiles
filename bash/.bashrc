@@ -95,7 +95,7 @@ alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1
 alias vpn-wget='http_proxy=http://127.0.0.1:2080/ https_proxy=http://127.0.0.1:2080/ wget'
 
 if command -v yt-dlp &>/dev/null; then
-	alias yt-dlp='yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
+	alias yt-dlp-help='yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
 fi
 
 alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
