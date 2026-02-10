@@ -206,10 +206,13 @@ run = "noop"
 on  = [ "D" ]
 run = "noop"
 
-
 # sshfs
 [[mgr.prepend_keymap]]
 on = ["M"]
 run = "plugin sshfs -- menu"
 desc = "Open SSHFS options"
 
+[[mgr.prepend_keymap]]
+on = ["<Insert>"]
+run = [ "toggle", "arrow 1" ]
+desc = "Toggle the current selection state"
