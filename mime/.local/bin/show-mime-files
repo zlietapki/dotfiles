@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-files="$HOME/.config/mimeapps.list
+files="$HOME/.config/xdg-terminals.list
+$HOME/.config/mimeapps.list
 $HOME/.local/share/applications/mimeapps.list
 /etc/xdg/mimeapps.list
 /usr/local/share/applications/mimeapps.list
