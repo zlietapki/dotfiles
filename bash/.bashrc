@@ -101,9 +101,9 @@ fi
 alias mount2='sudo mount -o umask=0022,gid=asd,uid=asd'
 
 # incluide my aliases
-for f in ~/.local/include/bash_aliases/*; do
-	source $f;
-done
+# for f in ~/.local/include/bash_aliases/*; do
+# 	source $f;
+# done
 
 if command -v dust &>/dev/null; then
 	alias du='\dust --reverse'
