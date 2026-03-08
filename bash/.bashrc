@@ -45,9 +45,9 @@ shopt -s histappend
 # не показывать имена переменных при cd <tab>
 shopt -u cdable_vars
 
-if command -v vivid &>/dev/null; then
-	export LS_COLORS=$(vivid generate one-dark)
-fi
+# if command -v vivid &>/dev/null; then
+# 	export LS_COLORS=$(vivid generate one-dark)
+# fi
 
 if command -v starship &>/dev/null; then
 	eval "$(starship init bash)"
@@ -144,3 +144,7 @@ fi
 
 # цветной stderr
 colorstderr()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1 # red stdout https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr
+
+if command -v claude &>/dev/null; then
+	alias vpn-claude='HTTP_PROXY=http://localhost:2080 HTTPS_PROXY=http://localhost:2080 claude'
+fi

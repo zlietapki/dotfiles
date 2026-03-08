@@ -28,3 +28,7 @@ keybind = ctrl+alt+shift+left=move_tab:-1
 keybind = ctrl+shift+A=select_all
 
 mouse-scroll-multiplier = 5
+
+# поиск
+keybind = ctrl+shift+f=write_scrollback_file:paste
+keybind = ctrl+shift+s=write_screen_file:paste

@@ -22,7 +22,7 @@
 
 {
     "label" : "elem6",
-    "action" : "reboot",
+    "action" : "pkill chrome; reboot",
     "text" : "Reboot",
     "keybind" : "r"
 }
