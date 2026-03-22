@@ -93,6 +93,7 @@ alias vpn-brave='brave --proxy-server="socks5://127.0.0.1:1080"'
 alias vpn-chrome='google-chrome-stable --proxy-server="socks5://127.0.0.1:2080"'
 alias vpn-yay='https_proxy=socks5://127.0.0.1:2080 http_proxy=socks5://127.0.0.1:2080 yay'
 alias vpn-wget='http_proxy=http://127.0.0.1:2080/ https_proxy=http://127.0.0.1:2080/ wget'
+alias vpn-curl='http_proxy=http://127.0.0.1:2080/ https_proxy=http://127.0.0.1:2080/ curl'
 
 if command -v yt-dlp &>/dev/null; then
 	alias yt-dlp-help='yt-dlp --cookies-from-browser=chrome -S ext:mp4:m4a --proxy=socks5://127.0.0.1:2080'
