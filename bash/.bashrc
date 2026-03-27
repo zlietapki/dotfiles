@@ -149,3 +149,11 @@ colorstderr()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1 # re
 if command -v claude &>/dev/null; then
 	alias vpn-claude='HTTP_PROXY=http://localhost:2080 HTTPS_PROXY=http://localhost:2080 claude'
 fi
+
+# kubectl
+if command -v kubectl &>/dev/null; then
+	alias k='kubectl'
+fi
+if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
+    . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl kubectl k
+fi

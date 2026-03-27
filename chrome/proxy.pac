@@ -145,5 +145,9 @@ function FindProxyForURL(url, host) {
         return "SOCKS 127.0.0.1:2080";
     }
 
+    if (shExpMatch(url,"*telegram.org/*")) {
+        return "SOCKS 127.0.0.1:2080";
+    }
+
     return "DIRECT";
 }
