@@ -157,3 +157,7 @@ fi
 if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
     . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl kubectl k
 fi
+
+# werf
+pathadd "$HOME/bin"
+! { command -v werf &>/dev/null; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
