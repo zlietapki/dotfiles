@@ -81,7 +81,7 @@ alias sudo='sudo ' # позволяет вызывать `sudo ll`
 
 alias ctl='systemctl'
 if [[ -r /usr/share/bash-completion/completions/systemctl ]]; then
-    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl systemctl ctl
+    . /usr/share/bash-completion/completions/systemctl && complete -F _systemctl ctl
 fi
 
 alias journalctl='journalctl -o short-iso'
@@ -151,11 +151,11 @@ if command -v claude &>/dev/null; then
 fi
 
 # kubectl
-if command -v kubectl &>/dev/null; then
-	alias k='kubectl'
+if command -v kubecolor &>/dev/null; then
+	alias k='kubecolor'
 fi
 if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
-    . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl kubectl k
+    . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl k
 fi
 
 # werf
