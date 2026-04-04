@@ -15,7 +15,7 @@ $HOME/.local/share/applications/defaults.list
 
 for file in $files
 do
-    if [[ -f $file ]]; then
+    if [[ -f "$file" ]]; then
         echo "EXISTS - $file"
     else
         echo "$file"

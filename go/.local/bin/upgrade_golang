@@ -36,7 +36,7 @@ check_sha256() {
     calculated_sha256=$(sha256sum "/tmp/$filename" | awk '{print $1}')
     if [[ "$calculated_sha256" != "$expected_sha" ]]; then
         echo "Incorrect sha256"
-        exit
+        exit 1
     else
         echo "sha256 ok"
     fi
