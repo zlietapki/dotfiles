@@ -25,6 +25,8 @@ pathadd "$HOME/.cargo/bin"
 
 # Push prompt to bottom of terminal on launch
 printf '\n%.0s' $(seq 1 $(tput lines))
+
+# on ctrl + l keep bottom line
 _clear_keep_bottom() {
     printf '\033[2J\033[%d;1H' "$LINES"
 }
