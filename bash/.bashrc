@@ -23,11 +23,12 @@ pathadd "$HOME/.cargo/bin"
 # outputting anything in those cases.
 [[ $- != *i* ]] && return
 
-# cursor to bottom
-# $(tput lines) - terminal height
-for _ in $(seq 2 $(tput lines)); do # seq FIRST LAST. FIRST is 2 to skip one line
-	echo
-done
+# Push prompt to bottom of terminal on launch
+printf '\n%.0s' $(seq 1 $(tput lines))
+_clear_keep_bottom() {
+    printf '\033[2J\033[%d;1H' "$LINES"
+}
+bind -x '"\C-l": _clear_keep_bottom'
 
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
@@ -158,6 +159,3 @@ if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
     . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl k
 fi
 
-# werf
-pathadd "$HOME/bin"
-! { command -v werf &>/dev/null; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
