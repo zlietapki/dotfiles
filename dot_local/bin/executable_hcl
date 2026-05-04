@@ -1,0 +1,3 @@
+#!/bin/env bash
+
+hyprctl clients -j | jq "[.[] | select(.workspace.id == $(hyprctl activeworkspace -j | jq .id))]"

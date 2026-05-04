@@ -1,0 +1,407 @@
+/*
+* vim: ft=less
+*/
+
+@define-color cc-bg rgba(0, 0, 0, 0.7);
+
+@define-color noti-border-color rgba(255, 255, 255, 0.15);
+@define-color noti-bg rgb(48, 48, 48);
+@define-color noti-bg-darker rgb(38, 38, 38);
+@define-color noti-bg-hover rgb(56, 56, 56);
+@define-color noti-bg-focus rgba(68, 68, 68, 0.6);
+@define-color noti-close-bg rgba(255, 255, 255, 0.1);
+@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
+@define-color text-color-disabled rgb(150, 150, 150);
+@define-color bg-selected rgb(0, 128, 255);
+@define-color text-color rgb(101, 123, 131);
+@define-color bt-gray-bg #404040;
+@define-color bt-hover-bg #0085A1;
+@define-color black rgb(0, 0, 0);
+ 
+ 
+ 
+@define-color base01 rgb(88, 110, 117);
+@define-color base00 rgb(101, 123, 131);
+@define-color base1 rgb(147, 161, 161);
+@define-color base2 rgb(238, 232, 213);
+@define-color base3 rgb(253, 246, 227);
+@define-color yellow rgb(181, 137,   0);
+@define-color orange rgb(203,  75,  22);
+@define-color red rgb(220,  50, 47);
+@define-color magenta rgb(211,  54, 130);
+@define-color violet rgb(108, 113, 196);
+@define-color blue rgb(38, 139, 210);
+@define-color blue-dark #2074af;
+@define-color blue-dark-border #195a89;
+@define-color cyan rgb(42, 161, 152);
+@define-color green rgb(133, 153, 0);
+ 
+ 
+ 
+@define-color button-foreground #FFFFFF;
+
+@define-color btn-default-bg #fefbf1;
+@define-color btn-default-bg-hover #fbeecb;
+@define-color btn-default-border #cccccc;
+@define-color btn-default-border-hover #adadad;
+@define-color btn-default-fg #333333;
+@define-color table-dark-row #FCF3D9;
+@define-color buttons-form-bg #EEE8D5;
+
+* {
+  /* font-family: "JetBrainsMonoNL Nerd Font Propo"; */
+  /* font-family: "Ubuntu Nerd Font Propo"; */
+  font-family: "Open Sans";
+  /* font-family: "NotoSerif Nerd Font Propo"; // no */
+  /* font-family: "NotoSansM Nerd Font Propo"; */
+  /* font-size: 16px; */
+  /* font-family: "DejaVuSansM Nerd Font Propo"; */
+}
+
+.notification-row {
+  outline: none;
+}
+ 
+.notification-row:focus,
+.notification-row:hover {
+  background: @base3;
+}
+ 
+.notification {
+  border-radius: 4px;
+  margin: 5px 10px;
+  box-shadow: none;
+  padding: 0;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.close-button {
+  opacity: 0;
+}
+
+/* .close-button {
+  background: @blue;
+  color: @base3;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 100%;
+  margin-top: 10px;
+  margin-right: 16px;
+  box-shadow: none;
+  border: none;
+  min-width: 24px;
+  min-height: 24px;
+} */
+ 
+/* .close-button:hover {
+  box-shadow: none;
+  background: @grey-hover;
+  transition: all 0.15s ease-in-out;
+  border: none;
+} */
+
+.notification-default-action {
+  padding: 4px;
+  margin: 0;
+  box-shadow: none;
+  background: @base3;
+  border: 1px solid @base00;
+  border-radius: 4px;
+  color: @base00;
+  transition: all 0.15s ease-in-out;
+}
+.notification-default-action:hover{
+  -gtk-icon-effect: none;
+  background: @btn-default-bg-hover;
+}
+
+/* When alternative actions are visible */
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+/* ? */
+.notification-action {
+  margin: 0;
+  padding: 4px;
+
+  /* box-shadow: none; */
+  
+  background: @btn-default-bg;
+  
+  /* border: 1px solid @btn-default-border; */
+  border: 1px solid @base00;
+  border-radius: 0px;
+  border-top: none;
+  border-right: none;
+
+  color: @btn-default-fg;
+  /* font-size: 16px; */
+
+  transition: all 0.15s ease-in-out;
+}
+
+/* add bottom border radius to eliminate clipping */
+.notification-action:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+.notification-action:last-child {
+  border-bottom-right-radius: 4px;
+  border-right: 1px solid @base00;
+}
+
+.notification-action:hover {
+  -gtk-icon-effect: none;
+  background: @btn-default-bg-hover;
+  /* background: red; */
+  /* border: 1px solid @btn-default-border-hover; */
+  /* color: @btn-default-fg; */
+}
+
+.inline-reply {
+  margin-top: 8px;
+}
+.inline-reply-entry {
+  background: @noti-bg-darker;
+  color: @text-color;
+  caret-color: @text-color;
+  border: 1px solid @noti-border-color;
+  border-radius: 4px;
+}
+.inline-reply-button {
+  margin-left: 4px;
+  background: @noti-bg;
+  border: 1px solid @noti-border-color;
+  border-radius: 4px;
+  color: @text-color;
+}
+.inline-reply-button:disabled {
+  background: initial;
+  color: @text-color-disabled;
+  border: 1px solid transparent;
+}
+.inline-reply-button:hover {
+  background: @noti-bg-hover;
+}
+
+.image {
+  
+}
+
+.body-image {
+  margin-top: 6px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.summary {
+  font-size: 14px;
+  font-weight: bold;
+  background: transparent;
+  color: @green;
+  text-shadow: none;
+}
+
+.time {
+  font-size: 14px;
+  font-weight: normal;
+  color: @green;
+  text-shadow: none;
+}
+
+.body {
+  font-size: 14px;
+  font-weight: normal;
+  color: @base00;
+}
+
+.control-center {
+  background: @base3;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+.floating-notifications {
+  /* background: transparent; */
+  /* background: red; */
+  /* height: 800px; */
+  
+}
+
+/* Window behind control center and on all other monitors */
+.blank-window {
+  /* background: alpha(black, 1); */
+  background: transparent;
+}
+
+/*** Widgets ***/
+
+/* Title widget */
+.widget-title {
+  font-size: 16px;
+}
+.widget-title > button {
+  font-size: 16px;
+  color: @button-foreground;
+  text-shadow: none;
+  background: @blue;
+  border: 1px solid transparent;
+  box-shadow: none;
+  border-radius: 4px;
+}
+.widget-title > button:hover {
+  background: @blue-dark;
+  border-color: @blue-dark-border;
+}
+
+/* DND widget */
+.widget-dnd {
+  font-size: 16px;
+}
+.widget-dnd > switch {
+  font-size: initial;
+  border-radius: 4px;
+  background: @base3;
+  border: 1px solid @blue;
+  box-shadow: none;
+}
+.widget-dnd > switch:checked {
+  background: @blue;
+}
+.widget-dnd > switch slider {
+  background: @base00;
+  border-radius: 4px;
+}
+
+/* Label widget */
+.widget-label {
+  margin: 8px;
+}
+.widget-label > label {
+  font-size: 1.1rem;
+}
+
+/* Mpris widget */
+.widget-mpris {
+  /* The parent to all players */
+}
+.widget-mpris-player {
+  padding: 8px;
+  margin: 8px;
+}
+.widget-mpris-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
+}
+
+/* Buttons widget */
+.widget-buttons-grid {
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+  background-color: @noti-bg;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button{
+  background: @noti-bg;
+  border-radius: 4px;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  background: @noti-bg-hover;
+}
+
+/* Menubar widget */
+.widget-menubar>box>.menu-button-bar>button {
+  border: none;
+  background: transparent;
+}
+
+.topbar-buttons>button { /* Name defined in config after # */
+  border: none;
+  background: transparent;
+}
+
+/* Volume widget */
+
+.widget-volume {
+  background-color: @noti-bg;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+}
+
+.widget-volume>box>button {
+  background: transparent;
+  border: none;
+}
+
+.per-app-volume {
+  background-color: @noti-bg-alt;
+  padding: 4px 8px 8px 8px;
+  margin: 0px 8px 8px 8px;
+  border-radius: 4px
+}
+
+/* Backlight widget */
+.widget-backlight {
+  background-color: @noti-bg;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+}
+
+/* Title widget */
+.widget-inhibitors {
+  margin: 8px;
+  font-size: 1.5rem;
+}
+.widget-inhibitors > button {
+  font-size: initial;
+  color: @text-color;
+  text-shadow: none;
+  background: @noti-bg;
+  border: 1px solid @noti-border-color;
+  box-shadow: none;
+  border-radius: 4px;
+}
+.widget-inhibitors > button:hover {
+  background: @noti-bg-hover;
+}
+
+/* Uncomment to enable specific urgency colors
+.low {
+  background: yellow;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.normal {
+  background: green;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.critical {
+  background: red;
+  padding: 6px;
+  border-radius: 12px;
+}
+*/
+ 

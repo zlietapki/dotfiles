@@ -1,0 +1,28 @@
+
+{
+    "label" : "elem1",
+    "action" : "swaylock -f && systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
+}
+
+{
+    "label" : "elem3",
+    "action" : "uwsm stop",
+    "text" : "Logout",
+    "keybind" : "l"
+}
+
+{
+    "label" : "elem5",
+    "action" : "shutdown -h now",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+
+{
+    "label" : "elem6",
+    "action" : "pkill chrome; reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}

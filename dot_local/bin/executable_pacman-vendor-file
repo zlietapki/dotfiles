@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# Вывести исходное содержимое файла
+
+usage() {
+    echo "Usage: $0 [-h|--help] <file>"
+    echo "  -h, --help         Display this help message"
+}
+
+canonicalPath() {
+    local path="$1" ; shift
+    if [ -d "$path" ]; then
+        echo "$(cd "$path" || exit ; pwd)"
+    else
+        local b
+        b=$(basename "$path")
+        local p
+        p=$(dirname "$path")
+        echo "$(cd "$p" || exit ; pwd)/$b"
+    fi
+}
+
+is_aur_package() {
+    local pkg_name="$1"; shift
+    pacman --query --foreign --color never "$pkg_name"
+}
+
+# Parse command-line arguments
+while true; do
+  case "$1" in
+    -h | --help )
+        usage
+        exit 0
+        ;;
+    * )
+        break
+        ;;
+  esac
+done
+
+FILE=$1
+FILE=$(canonicalPath "$FILE")
+if [[ -z "$FILE" ]]; then
+    usage
+    exit 0
+fi
+
+if [[ ! -f "$FILE" ]]; then
+    echo "File $FILE not exists"
+    exit 0
+fi
+
+# пакет
+PKG_NAME=$(pacman -Qqo --color never "$FILE") || { echo "Error get package"; exit 1; }
+
+# архитектура версия
+PKG_ARCH=$(expac -Q '%a' "$PKG_NAME") || { echo "Error get arch"; exit 1; }
+PKG_VER=$(expac -Q '%v' "$PKG_NAME") || { echo "Error get ver"; exit 1; }
+
+# из AUR или нет
+IS_AUR=$(is_aur_package "$PKG_NAME")
+if [[ -n "$IS_AUR" ]]; then
+    PKG_TAR="${HOME}/.cache/yay/${PKG_NAME}/${PKG_NAME}-${PKG_VER}-${PKG_ARCH}.pkg.tar.zst"
+else
+    PKG_FILENAME=$(expac -S '%f' "$PKG_NAME") # для AUR имя архива так не вытащить
+    PKG_TAR="/var/cache/pacman/pkg/${PKG_FILENAME}"
+fi
+
+RES=$(bsdtar --extract --to-stdout --file "$PKG_TAR" ."${FILE}") || { echo "Error extract"; exit 1; }
+echo "$RES"

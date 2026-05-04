@@ -1,0 +1,39 @@
+require("full-border"):setup() -- рамка вокруг
+require("folder-rules"):setup() -- сортировка по времени для Downloads
+require("toggle-pane"):entry("min-parent") -- прятать parent pane при старте, но можно включить кнопкой "|"
+require("sshfs"):setup() -- sshfs
+
+-- Show user/group of files in status bar
+Status:children_add(function()
+	local h = cx.active.current.hovered
+	if not h or ya.target_family() ~= "unix" then
+		return ""
+	end
+
+	return ui.Line {
+		ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg("magenta"),
+		":",
+		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
+		" ",
+	}
+end, 500, Status.RIGHT)
+
+-- Show username and hostname in header
+Header:children_add(function()
+	if ya.target_family() ~= "unix" then
+		return ""
+	end
+	return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. " "):fg("blue")
+end, 500, Header.LEFT)
+
+-- При сортировке по mtime формат колонок dd.mm H:M
+function Linemode:mtime()
+  local time = math.floor(self._file.cha.mtime or 0)
+  if time == 0 then
+    return ""
+  elseif os.date("%Y", time) == os.date("%Y") then
+    return os.date("%d.%m %H:%M", time)
+  else
+    return os.date("%d.%m.%Y", time)
+  end
+end
