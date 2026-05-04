@@ -156,6 +156,11 @@ if command -v claude &>/dev/null; then
 	alias vpn-claude='HTTP_PROXY=http://localhost:2080 HTTPS_PROXY=http://localhost:2080 claude'
 fi
 
+if command -v chezmoi &>/dev/null; then
+    alias cm='chezmoi'
+    . /usr/share/bash-completion/completions/chezmoi && complete -F __start_chezmoi cm
+fi
+
 # kubectl
 if command -v kubecolor &>/dev/null; then
 	alias k='kubecolor'
