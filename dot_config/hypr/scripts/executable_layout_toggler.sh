@@ -3,6 +3,9 @@
 # Ждёт когда откроется окно класса my.terminal и включит US раскладку.
 # запоминает раскладку до включения US и восстанавливает её после выхода из терминала
 
+# Depends:
+# yay -Qo socat
+
 # run once
 PID_FILE="${XDG_RUNTIME_DIR}/layout_toggler.pid"
 TERMINAL_CLASS="my.terminal" 

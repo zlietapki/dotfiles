@@ -2,3 +2,6 @@
 {{- $machine := promptChoiceOnce . "machine" "What type of host are you on" $machines -}}
 [data]
   machine = {{ $machine | quote }}
+[git]
+  autoCommit = true
+  autoPush = true
