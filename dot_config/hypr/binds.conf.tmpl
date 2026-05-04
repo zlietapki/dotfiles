@@ -4,6 +4,8 @@
 # regex notation Google RE2 https://github.com/google/re2/wiki/Syntax
 
 $setUSLayout = hyprctl switchxkblayout $(hyprctl -j devices | jq -r '.keyboards | .[] | select(.main == true) | .name') 0
+$getVolume = wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed "s/Volume: //" | sed "s/0\.//" | tr --delete "."
+
 # debug actions
 bind = SUPER_ALT, 1, exec, export > /tmp/hypr_envs # all exported env vars
 
@@ -96,7 +98,6 @@ binded = SUPER_SHIFT, up, Resize up, resizeactive, 0 -10
 binded = SUPER_SHIFT, down, Resize down, resizeactive, 0 10
 
 # Audio
-$getVolume = wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed "s/Volume: //" | sed "s/0\.//" | tr --delete "."
 bindld  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindld  = , XF86AudioMute, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindeld = , XF86AudioRaiseVolume, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
