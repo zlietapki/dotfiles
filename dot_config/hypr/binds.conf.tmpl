@@ -43,6 +43,8 @@ windowrule {
   workspace = special:codium
 }
 
+workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
+
 {{- else if eq .machine "thinkpad" }}
 ############################################# THINKPAD ##########################################
 
@@ -63,6 +65,8 @@ windowrule {
   workspace = special:codium
 }
 
+workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
+
 {{- else if eq .machine "hp" }}
 ############################################# hp ##########################################
 
@@ -78,6 +82,8 @@ windowrule {
 
   workspace = special:codium
 }
+
+workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
 
 {{- end }}
 ###
@@ -176,7 +182,6 @@ bindd = CTRL, ESCAPE, Htop, exec, uwsm-app -- hypr_start_move_kill 'kitty --clas
 
 bindd = SUPER, grave, Switch to terminal workspace, togglespecialworkspace, terminal
 bindd = SUPER_CTRL, grave, Move to terminal workspace, movetoworkspacesilent, special:terminal
-workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
 
 bindd = SUPER, F1, Toggle throne worspace, togglespecialworkspace, throne
 bindd = SUPER_CTRL, F1, Move to throne worspace, movetoworkspacesilent, special:throne
