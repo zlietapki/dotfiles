@@ -158,7 +158,7 @@ fi
 
 if command -v chezmoi &>/dev/null; then
     alias cm='chezmoi'
-    . /usr/share/bash-completion/completions/chezmoi && complete -F __start_chezmoi cm
+    . /usr/share/bash-completion/completions/chezmoi && complete -o default -F __start_chezmoi cm
 fi
 
 # kubectl
@@ -168,4 +168,3 @@ fi
 if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
     . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl k
 fi
-
