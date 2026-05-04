@@ -1,0 +1,4 @@
+{{- $machines := list "box" "thinkpad" "hp" -}}
+{{- $machine := promptChoiceOnce . "machine" "What type of host are you on" $machines -}}
+[data]
+  machine = {{ $machine | quote }}
