@@ -3,7 +3,6 @@
 # https://wiki.hypr.land/Configuring/Window-Rules/
 # regex notation Google RE2 https://github.com/google/re2/wiki/Syntax
 
-$setUSLayout = hyprctl switchxkblayout $(hyprctl -j devices | jq -r '.keyboards | .[] | select(.main == true) | .name') 0
 $getVolume = wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed "s/Volume: //" | sed "s/0\.//" | tr --delete "."
 
 # debug actions
