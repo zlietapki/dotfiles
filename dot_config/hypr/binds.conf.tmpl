@@ -8,23 +8,41 @@ $getVolume = wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed "s/Volume: //" | sed "s
 # debug actions
 bind = SUPER_ALT, 1, exec, export > /tmp/hypr_envs # all exported env vars
 
-# custom machine config {{ .machine | quote }} START
+###
+### custom machine config {{ .machine | quote }} START
+###
 {{- if eq .machine "box" }}
+############################################# BOX ##########################################
 bind = ALT, 6, exec, hyprctl notify -1 2000 "rgb(ff1ea3)" "Hello everyone!"
+
+bindd = , Pause, Toggle notes worspace, togglespecialworkspace, codium
+bindd = SUPER_CTRL, Pause, Move to notes worspace, movetoworkspacesilent, special:codium
+
 {{- else if eq .machine "thinkpad" }}
+############################################# THINKPAD ##########################################
+
 bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapplications.so
 
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 bindld  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
+
+bindd = SUPER, DELETE, Toggle notes worspace, togglespecialworkspace, codium
+bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
+
 {{- else if eq .machine "hp" }}
+############################################# hp ##########################################
+
 bindi = , XF86PickupPhone, exec, grim -g "$(slurp)" - | swappy -f - # Screenshot/Screencapture
 bindi = , XF86HangupPhone, togglespecialworkspace, telegram
-bind = , delete, togglespecialworkspace, codium
+bind = SUPER, DELETE, togglespecialworkspace, codium
+bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
+
 {{- end }}
-# custom machine config {{ .machine | quote }} END
+###
+### custom machine config {{ .machine | quote }} END
+###
 
 # no gaps когда одно окно https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
 # должно быть до всех правил про workspace
@@ -138,8 +156,6 @@ bindd = SUPER, grave, Switch to terminal workspace, togglespecialworkspace, term
 bindd = SUPER_CTRL, grave, Move to terminal workspace, movetoworkspacesilent, special:terminal
 workspace = special:terminal, rounding:true, gapsout:300 150 -4, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
 
-bindd = , Pause, Toggle notes worspace, togglespecialworkspace, codium
-bindd = SUPER_CTRL, Pause, Move to notes worspace, movetoworkspacesilent, special:codium
 workspace = special:codium, rounding:true, gapsout:300 100 50, on-created-empty: uwsm-app -- code --ozone-platform-hint=auto
 windowrule {
   name = codium
