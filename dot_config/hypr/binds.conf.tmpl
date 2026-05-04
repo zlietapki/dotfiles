@@ -17,6 +17,13 @@ bind = ALT, 6, exec, hyprctl notify -1 2000 "rgb(ff1ea3)" "Hello everyone!"
 
 bindd = , Pause, Toggle notes worspace, togglespecialworkspace, codium
 bindd = SUPER_CTRL, Pause, Move to notes worspace, movetoworkspacesilent, special:codium
+workspace = special:codium, rounding:true, gapsout:300 100 50, on-created-empty: uwsm-app -- code --ozone-platform-hint=auto
+windowrule {
+  name = codium
+  match:class = ^code-oss$
+
+  workspace = special:codium
+}
 
 {{- else if eq .machine "thinkpad" }}
 ############################################# THINKPAD ##########################################
@@ -30,14 +37,29 @@ bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 
 bindd = SUPER, DELETE, Toggle notes worspace, togglespecialworkspace, codium
 bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
+workspace = special:codium, rounding:true, gapsout:50 50 50, on-created-empty: uwsm-app -- code --ozone-platform-hint=auto
+windowrule {
+  name = codium
+  match:class = ^code-oss$
+
+  workspace = special:codium
+}
 
 {{- else if eq .machine "hp" }}
 ############################################# hp ##########################################
 
 bindi = , XF86PickupPhone, exec, grim -g "$(slurp)" - | swappy -f - # Screenshot/Screencapture
 bindi = , XF86HangupPhone, togglespecialworkspace, telegram
+
 bind = SUPER, DELETE, togglespecialworkspace, codium
 bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
+workspace = special:codium, rounding:true, gapsout:50 50 50, on-created-empty: uwsm-app -- code --ozone-platform-hint=auto
+windowrule {
+  name = codium
+  match:class = ^code-oss$
+
+  workspace = special:codium
+}
 
 {{- end }}
 ###
@@ -155,14 +177,6 @@ bindd = CTRL, ESCAPE, Htop, exec, uwsm-app -- hypr_start_move_kill 'kitty --clas
 bindd = SUPER, grave, Switch to terminal workspace, togglespecialworkspace, terminal
 bindd = SUPER_CTRL, grave, Move to terminal workspace, movetoworkspacesilent, special:terminal
 workspace = special:terminal, rounding:true, gapsout:300 150 -4, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
-
-workspace = special:codium, rounding:true, gapsout:300 100 50, on-created-empty: uwsm-app -- code --ozone-platform-hint=auto
-windowrule {
-  name = codium
-  match:class = ^code-oss$
-
-  workspace = special:codium
-}
 
 bindd = SUPER, F1, Toggle throne worspace, togglespecialworkspace, throne
 bindd = SUPER_CTRL, F1, Move to throne worspace, movetoworkspacesilent, special:throne
