@@ -8,6 +8,24 @@ $getVolume = wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed "s/Volume: //" | sed "s
 # debug actions
 bind = SUPER_ALT, 1, exec, export > /tmp/hypr_envs # all exported env vars
 
+# no gaps когда одно окно https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
+# должно быть до всех правил про workspace
+workspace = w[tv1], gapsout:0, gapsin:0
+workspace = f[1], gapsout:0, gapsin:0
+windowrule {
+  name = windowrule-1
+  border_size = 0
+  match:float = 0
+  match:workspace = w[tv1]
+}
+
+windowrule {
+  name = windowrule-2
+  border_size = 0
+  match:float = 0
+  match:workspace = f[1]
+}
+
 ###
 ### custom machine config {{ .machine | quote }} START
 ###
@@ -65,24 +83,6 @@ windowrule {
 ###
 ### custom machine config {{ .machine | quote }} END
 ###
-
-# no gaps когда одно окно https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
-# должно быть до всех правил про workspace
-workspace = w[tv1], gapsout:0, gapsin:0
-workspace = f[1], gapsout:0, gapsin:0
-windowrule {
-  name = windowrule-1
-  border_size = 0
-  match:float = 0
-  match:workspace = w[tv1]
-}
-
-windowrule {
-  name = windowrule-2
-  border_size = 0
-  match:float = 0
-  match:workspace = f[1]
-}
 
 bindd = SUPER, 1, Switch to workspace, workspace, 1
 bindd = SUPER, 2, Switch to workspace, workspace, 2
