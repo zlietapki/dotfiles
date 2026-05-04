@@ -7,8 +7,7 @@ $setUSLayout = hyprctl switchxkblayout $(hyprctl -j devices | jq -r '.keyboards 
 # debug actions
 bind = SUPER_ALT, 1, exec, export > /tmp/hypr_envs # all exported env vars
 
-# load custom machine config
-# source = ~/.config/hypr/$MACHINE_ID/binds.conf # MACHINE_ID from /etc/environment
+# custom machine config {{ .machine | quote }} START
 {{- if eq .machine "box" }}
 bind = ALT, 6, exec, hyprctl notify -1 2000 "rgb(ff1ea3)" "Hello everyone!"
 {{- else if eq .machine "thinkpad" }}
@@ -24,6 +23,7 @@ bindi = , XF86PickupPhone, exec, grim -g "$(slurp)" - | swappy -f - # Screenshot
 bindi = , XF86HangupPhone, togglespecialworkspace, telegram
 bind = , delete, togglespecialworkspace, codium
 {{- end }}
+# custom machine config {{ .machine | quote }} END
 
 # no gaps когда одно окно https://wiki.hyprland.org/Configuring/Workspace-Rules/#smart-gaps
 # должно быть до всех правил про workspace
