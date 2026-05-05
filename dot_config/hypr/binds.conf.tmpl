@@ -176,7 +176,7 @@ bindd = SUPER, I, Window info, exec, hyprctl activewindow -j | uwsm-app -- foot 
 bindd = SUPER, tab, Show notifications, exec, uwsm-app -- swaync-client --toggle-panel --skip-wait
 bindd = SUPER, SUPER_R, App launcher, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapplications.so
 bindd = ALT, F2, Lunch asddoc, exec, uwsm-app -- asddoc_rofi -e 'code --ozone-platform-hint=auto' && hypr_activate_ws_if_exists special:codium
-bindd = CTRL, ESCAPE, Htop, exec, uwsm-app -- hypr_start_move_kill 'kitty --class=sysmonitor htop' sysmonitor
+bindd = CTRL, ESCAPE, Launch btop, exec, uwsm-app -- hypr_start_move_kill 'ghostty --class=my.sysmonitor --command=btop' my.sysmonitor
 
 # у workspace при rounding:false начинает просвечивать верхняя грань htop
 
@@ -230,11 +230,11 @@ windowrule {
 
 # htop
 windowrule {
-  name = sysmonitor
+  name = my.sysmonitor
   float = on
-  center = 1
+  move = (monitor_w*0.125) (monitor_h*0.125)
   size = (monitor_w*0.75) (monitor_h*0.75)
-  match:class = ^sysmonitor$
+  match:class = ^my\.sysmonitor$
 }
 
 # windowrule {
