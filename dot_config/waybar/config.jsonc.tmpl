@@ -2,7 +2,11 @@
   "reload_style_on_change": true,
   "layer": "top",
   "position": "bottom",
+{{- if eq .machine "box" }}
   "height": 35,
+{{- else }}
+  "height": 40,
+{{- end }}
 
   "modules-left": [
     "custom/cpuhistory",
