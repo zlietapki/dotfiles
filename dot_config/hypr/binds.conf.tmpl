@@ -176,7 +176,7 @@ bindd = SUPER, I, Window info, exec, hyprctl activewindow -j | uwsm-app -- foot 
 bindd = SUPER, tab, Show notifications, exec, uwsm-app -- swaync-client --toggle-panel --skip-wait
 bindd = SUPER, SUPER_R, App launcher, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapplications.so
 bindd = ALT, F2, Lunch asddoc, exec, uwsm-app -- asddoc_rofi -e 'code --ozone-platform-hint=auto' && hypr_activate_ws_if_exists special:codium
-bindd = CTRL, ESCAPE, Launch btop, exec, uwsm-app -- hypr_start_move_kill 'ghostty --class=my.sysmonitor --command=btop' my.sysmonitor
+bindd = CTRL, ESCAPE, Launch btop, exec, uwsm-app -- $scriptDir/window_start_move_kill 'ghostty --class=my.sysmonitor --command=btop' my.sysmonitor
 
 # у workspace при rounding:false начинает просвечивать верхняя грань htop
 
