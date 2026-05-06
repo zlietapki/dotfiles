@@ -53,12 +53,12 @@ bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapp
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 bindd  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-binded  = SUPER, F5, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - "$step" )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
+binded  = SUPER, F5, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - step )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
 binded  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +3000
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 
-bindeld = , XF86MonBrightnessDown, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
-bindeld = , XF86MonBrightnessUp, Brightness+, exec, brightnessctl -d intel_backlight set +10%
+bindeld = , XF86MonBrightnessDown, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - step )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
+bindeld = , XF86MonBrightnessUp, Brightness+, exec, brightnessctl -d intel_backlight set +3000
 
 bindd = SUPER, DELETE, Toggle notes worspace, togglespecialworkspace, codium
 bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
