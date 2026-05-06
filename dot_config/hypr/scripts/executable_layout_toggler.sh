@@ -67,9 +67,9 @@ activelayout() {
     local layout="${1#activelayout>>}"
     layout="${layout#*,}"
     if [[ "$layout" == "Russian" ]]; then
-        brightnessctl -qd input7::capslock set 1
+        brightnessctl -qd '*::capslock' set 1
     else
-        brightnessctl -qd input7::capslock set 0
+        brightnessctl -qd '*::capslock' set 0
     fi
 }
 
