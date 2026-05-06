@@ -120,7 +120,7 @@
     "format-source": "",
     "format-source-muted": "",
 {{- if eq .machine "thinkpad" }}
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || echo brightnessctl -qd platform::micmute set 0",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || brightnessctl -qd platform::micmute set 0",
 {{- else }}
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
 {{- end }}
