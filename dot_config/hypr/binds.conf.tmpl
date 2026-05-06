@@ -51,6 +51,7 @@ bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDI
 
 bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapplications.so
 
+bindd   = SUPER, F1, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && brightnessctl -qd platform::mute set 1 || brightnessctl -qd platform::mute set 0
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 
