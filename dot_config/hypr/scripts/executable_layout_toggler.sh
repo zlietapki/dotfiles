@@ -63,23 +63,10 @@ activewindow() {
     fi
 }
 
-activelayout() {
-    local layout="${1#activelayout>>}"
-    layout="${layout#*,}"
-    if [[ "$layout" == "Russian" ]]; then
-        brightnessctl -qd '*::capslock' set 1
-    else
-        brightnessctl -qd '*::capslock' set 0
-    fi
-}
-
 handle() {
   case $1 in
     'activewindow>>'*)
         activewindow "$1"
-        ;;
-    'activelayout>>'*)
-        activelayout "$1"
         ;;
   esac
 }
