@@ -57,8 +57,8 @@ binded  = SUPER, F5, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d
 binded  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +3000
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 
-bindeld = , XF86MonBrightnessDown, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - step )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
-bindeld = , XF86MonBrightnessUp, Brightness+, exec, brightnessctl -d intel_backlight set +3000
+binded = , XF86MonBrightnessDown, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - step )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
+binded = , XF86MonBrightnessUp, Brightness+, exec, brightnessctl -d intel_backlight set +3000
 
 bindd = SUPER, DELETE, Toggle notes worspace, togglespecialworkspace, codium
 bindd = SUPER_CTRL, DELETE, Move to notes worspace, movetoworkspacesilent, special:codium
