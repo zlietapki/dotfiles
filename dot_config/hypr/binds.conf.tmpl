@@ -45,6 +45,7 @@ windowrule {
 
 workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
 
+bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 {{- else if eq .machine "thinkpad" }}
 ############################################# THINKPAD ##########################################
 
@@ -52,7 +53,10 @@ bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapp
 
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
-bindd  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+bindd  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || brightnessctl -qd platform::micmute set 0
+bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || brightnessctl -qd platform::micmute set 0
+
 binded  = SUPER, F5, Brightness-, exec, step=3000; target=$(( $(brightnessctl -d intel_backlight get) - step )); [ "$target" -gt 0 ] && brightnessctl -d intel_backlight set "$target" || brightnessctl -d intel_backlight set 1
 binded  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +3000
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
@@ -90,6 +94,7 @@ windowrule {
 
 workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty: uwsm-app -- xdg-terminal-exec --app-id=my.terminal
 
+bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 {{- end }}
 ###
 ### custom machine config {{ .machine | quote }} END
@@ -148,7 +153,6 @@ binded = SUPER_SHIFT, up, Resize up, resizeactive, 0 -10
 binded = SUPER_SHIFT, down, Resize down, resizeactive, 0 10
 
 # Audio
-bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindd  = , XF86AudioMute, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindeld = , XF86AudioRaiseVolume, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 bindeld = , XF86AudioLowerVolume, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
