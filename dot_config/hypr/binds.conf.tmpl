@@ -192,14 +192,14 @@ bindd = CTRL, ESCAPE, Launch btop, exec, uwsm-app -- $scriptDir/window_start_mov
 bindd = SUPER, grave, Switch to terminal workspace, togglespecialworkspace, terminal
 bindd = SUPER_CTRL, grave, Move to terminal workspace, movetoworkspacesilent, special:terminal
 
-bindd = SUPER, F1, Toggle throne worspace, togglespecialworkspace, throne
-bindd = SUPER_CTRL, F1, Move to throne worspace, movetoworkspacesilent, special:throne
-workspace = special:throne, rounding:true, gapsout:50, on-created-empty: uwsm-app -- throne
+bindd = SUPER, V, Toggle vpn worspace, togglespecialworkspace, vpn
+bindd = SUPER_CTRL, V, Move to vpn worspace, movetoworkspacesilent, special:vpn
+workspace = special:vpn, rounding:true, gapsout:50, on-created-empty: uwsm-app -- throne
 windowrule {
-  name = throne
+  name = vpn
   match:class = ^Throne$
 
-  workspace = special:throne silent
+  workspace = special:vpn silent
 }
 
 windowrule {
@@ -359,13 +359,6 @@ windowrule {
 
   float = on
 }
-
-# windowrule {
-#   name = throne
-#   match:class = ^Throne$
-
-#   workspace = special:throne
-# }
 
 windowrule {
   name = calculator
