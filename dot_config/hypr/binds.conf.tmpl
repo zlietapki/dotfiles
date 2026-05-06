@@ -53,11 +53,11 @@ bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapp
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 bindld  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindld  = SUPER, F5, Brightness-, exec, brightnessctl -d intel_backlight set 10%-
+bindld  = SUPER, F5, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
 bindld  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +10%
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 
-bindeld = , XF86MonBrightnessDown, Brightness-, exec, brightnessctl -d intel_backlight set 10%-
+bindeld = , XF86MonBrightnessDown, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
 bindeld = , XF86MonBrightnessUp, Brightness+, exec, brightnessctl -d intel_backlight set +10%
 
 bindd = SUPER, DELETE, Toggle notes worspace, togglespecialworkspace, codium
