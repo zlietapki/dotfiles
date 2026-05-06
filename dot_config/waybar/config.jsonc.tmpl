@@ -119,7 +119,11 @@
     "format": "{format_source} {source_volume}",
     "format-source": "",
     "format-source-muted": "",
+{{- if eq .machine "thinkpad" }}
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || echo brightnessctl -qd platform::micmute set 0",
+{{- else }}
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+{{- end }}
     "on-click-right": "pkill pavucontrol-qt; pavucontrol-qt -t 4",
     "on-scroll-up": "bash -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) < \"Volume: 1.50\" ]] && wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+'",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
