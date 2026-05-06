@@ -52,9 +52,9 @@ bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapp
 
 bindeld = SUPER, F2, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
 bindeld = SUPER, F3, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
-bindld  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindld  = SUPER, F5, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
-bindld  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +10%
+bindd  = SUPER, F4, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+binded  = SUPER, F5, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
+binded  = SUPER, F6, Brightness+, exec, brightnessctl -d intel_backlight set +10%
 bindd = SUPER, F9, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 
 bindeld = , XF86MonBrightnessDown, Brightness-, exec, current=$(brightnessctl -d intel_backlight get); [ $((current - 1)) -gt 1 ] && brightnessctl -d intel_backlight set 10%- || brightnessctl -d intel_backlight set 1
@@ -148,14 +148,14 @@ binded = SUPER_SHIFT, up, Resize up, resizeactive, 0 -10
 binded = SUPER_SHIFT, down, Resize down, resizeactive, 0 10
 
 # Audio
-bindld  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindld  = , XF86AudioMute, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindd  = , XF86AudioMute, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindeld = , XF86AudioRaiseVolume, Volume+, exec, bash -c 'v=$($getVolume); [[ $v -lt 150 ]] && ((v += 10)) && wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+; echo $v > $WOBSOCK'
 bindeld = , XF86AudioLowerVolume, Volume-, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%- && echo $($getVolume) > $WOBSOCK
-bindld  = , XF86AudioPlay, Play, exec, playerctl play-pause
-bindld  = , XF86AudioPause, Pause, exec, playerctl play-pause
-bindld  = , XF86AudioNext, Next track, exec, playerctl next
-bindld  = , XF86AudioPrev, Previous track, exec, playerctl previous
+bindd  = , XF86AudioPlay, Play, exec, playerctl play-pause
+bindd  = , XF86AudioPause, Pause, exec, playerctl play-pause
+bindd  = , XF86AudioNext, Next track, exec, playerctl next
+bindd  = , XF86AudioPrev, Previous track, exec, playerctl previous
 
 # Cycle monitor scaling super+/
 bindd = SUPER, code:61, Cycle monitor scaling, exec, asd-hyprland-monitor-scaling-cycle

@@ -14,13 +14,13 @@ listener {
 # приглушить монитор до 30%
 listener {
     timeout = 300 # seconds
-    on-timeout = target=30; max=$(brightnessctl -d intel_backlight m); target_abs=$((max * target / 100)); current=$(brightnessctl -d intel_backlight get); [ "$current" -gt "$target_abs" ] && for i in $(seq "$current" -1000 "$target_abs"); do brightnessctl -qd intel_backlight set "$i"; done
-    on-resume = max=$(brightnessctl -d intel_backlight m); current=$(brightnessctl -d intel_backlight get); [ "$current" -lt "$max" ] && for i in $(seq "$current" 1000 "$max"); do brightnessctl -qd intel_backlight set "$i"; done && brightnessctl -qd intel_backlight set "$max"
+    on-timeout = target=30; max=$(brightnessctl -d intel_backlight m); target_abs=$((max * target / 100)); current=$(brightnessctl -d intel_backlight get); [ "$current" -gt "$target_abs" ] && for i in $(seq "$current" -250 "$target_abs"); do brightnessctl -qd intel_backlight set "$i"; done
+    on-resume = max=$(brightnessctl -d intel_backlight m); current=$(brightnessctl -d intel_backlight get); [ "$current" -lt "$max" ] && for i in $(seq "$current" 250 "$max"); do brightnessctl -qd intel_backlight set "$i"; done && brightnessctl -qd intel_backlight set "$max"
 }
 
 listener {
     timeout = 600
-    on-timeout = hyprctl dispatch dpms off # screen off when timeout has passed
-    on-resume = hyprctl dispatch dpms on # screen on when activity is detected
+    on-timeout = hyprctl dispatch dpms off # screen off
+    on-resume = hyprctl dispatch dpms on # screen on
 }
 {{ end -}}
