@@ -84,6 +84,7 @@ window#waybar {
 #custom-weather.severe,
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
+#custom-bt-battery,
 #custom-weather.sunnyDay {
   color: @foreground;
   padding: 3px 6px 3px 6px;
@@ -101,6 +102,21 @@ window#waybar {
 #disk.critical,
 #memory.critical,
 #cpu.critical {
+  border-top: 3px solid @background;
+  border-bottom: 3px solid @red;
+}
+
+#custom-bt-battery.hidden {
+  min-width: 0;
+  padding: 0;
+}
+
+#custom-bt-battery.warning {
+  border-top: 3px solid @background;
+  border-bottom: 3px solid @yellow;
+}
+
+#custom-bt-battery.critical {
   border-top: 3px solid @background;
   border-bottom: 3px solid @red;
 }
