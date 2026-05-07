@@ -118,7 +118,7 @@
     "format": "{format_source} {source_volume}",
     "format-source": "",
     "format-source-muted": "",
-{{- if eq .machine "thinkpad" }}
+{{- if eq .machine "boomer" }}
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && brightnessctl -qd platform::micmute set 1 || brightnessctl -qd platform::micmute set 0",
 {{- else }}
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",

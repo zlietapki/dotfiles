@@ -47,8 +47,8 @@ workspace = special:terminal, rounding:true, gapsout:300 150 0, on-created-empty
 
 bindd  = , XF86AudioMute, Output mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindd  = , XF86AudioMicMute, Microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-{{- else if eq .machine "thinkpad" }}
-############################################# THINKPAD ##########################################
+{{- else if eq .machine "boomer" }}
+############################################# BOOMER ##########################################
 
 bindi = , code:201, exec, uwsm-app -- pkill -x anyrun || anyrun --plugins libapplications.so
 
@@ -182,7 +182,7 @@ bindd = , Print, Make Screenshot, exec, grim -g "$(slurp)" - | swappy -f -
 bindd = ALT, Print, Copy pixel color, exec, hyprpicker --autocopy --no-fancy
 
 $getProxyPAC = base64 -w0 ~/proxy.pac
-bindd = SUPER, B, Google chrome, exec, uwsm-app -- google-chrome-stable --proxy-pac-url='data:application/x-javascript-config;base64,'$($getProxyPAC)
+bindd = SUPER, B, Google chrome, exec, uwsm-app -p KillMode=process -- google-chrome-stable --proxy-pac-url='data:application/x-javascript-config;base64,'$($getProxyPAC)
 bindd = SUPER_ALT, B, Brave browser, exec, uwsm-app -- brave --proxy-server="socks5://127.0.0.1:2080"
 bindd = SUPER, T, Lunch foot terminal, exec, uwsm-app -- foot
 bindd = SUPER, I, Window info, exec, hyprctl activewindow -j | uwsm-app -- foot sh -c 'jq --sort-keys --color-output < /proc/$PPID/fd/0 | less --RAW-CONTROL-CHARS'
