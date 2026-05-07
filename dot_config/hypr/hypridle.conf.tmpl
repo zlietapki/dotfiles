@@ -3,7 +3,16 @@ listener {
     on-timeout = hyprlock
 }
 
-{{ if eq .machine "thinkpad" -}}
+{{ if eq .machine "box" -}}
+
+listener {
+    timeout = 600
+    on-timeout = hyprctl dispatch dpms off # screen off
+    on-resume = hyprctl dispatch dpms on # screen on
+}
+
+{{ else if eq .machine "thinkpad" }}
+
 # приглушить клавиатуру
 listener {
     timeout = 10 # seconds
@@ -23,4 +32,5 @@ listener {
     on-timeout = hyprctl dispatch dpms off # screen off
     on-resume = hyprctl dispatch dpms on # screen on
 }
+
 {{ end -}}
