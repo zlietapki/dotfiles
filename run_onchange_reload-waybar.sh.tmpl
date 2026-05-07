@@ -1,0 +1,4 @@
+#!/bin/bash
+# waybar config: {{ include "dot_config/waybar/config.jsonc.tmpl" | sha256sum }}
+# waybar style: {{ include "dot_config/waybar/style.css" | sha256sum }}
+killall -SIGUSR2 waybar
