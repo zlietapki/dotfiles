@@ -16,7 +16,7 @@
     "disk"
   ],
   "modules-center": ["hyprland/workspaces#roman"],
-  "modules-right": ["hyprland/language", "tray", "custom/bt-battery", "network", "group/audio", "clock"],
+  "modules-right": ["hyprland/language", "tray", "custom/bt-battery", "network", "group/audio", "battery", "clock"],
   "custom/cpuhistory": {
     "format": " {}",
     "exec": "~/.config/waybar/scripts/cpu_history.py -d 20",
@@ -127,6 +127,21 @@
     "on-scroll-up": "bash -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) < \"Volume: 1.50\" ]] && wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+'",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
     "tooltip-format": "{format_source} {source_desc}"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC",
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-full": "󰁹 {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo}, {power:.2f}W"
   },
   "clock": {
     "format": "{:%H:%M}",
