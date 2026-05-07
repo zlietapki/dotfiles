@@ -22,16 +22,16 @@
     "exec": "~/.config/waybar/scripts/cpu_history.py -d 20",
     "interval": 1,
     "return-type": "json",
-    "on-click": "~/.config/waybar/scripts/cpu_history.py toggle"
+    "on-click-right": "~/.config/waybar/scripts/cpu_history.py toggle"
   },
   "memory": {
     "interval": 10,
     "format": "󰾆 {used:0.1f}G",
     "format-alt": "󰾆 {percentage}%",
-    "format-alt-click": "click",
+    "format-alt-click": "click-right",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}G/{total:0.1f}G",
-    "on-click-right": "uwsm-app -- ~/.config/hypr/scripts/window_start_move_kill 'ghostty --class=my.sysmonitor --command=btop' my.sysmonitor"
+    "on-click": "uwsm-app -- ~/.config/hypr/scripts/window_start_move_kill 'ghostty --class=my.sysmonitor --command=btop' my.sysmonitor"
   },
   "custom/cpu-temp": {
     "interval": 10,
@@ -146,6 +146,7 @@
   "clock": {
     "format": "{:%H:%M}",
     "format-alt": "{:%d.%m.%Y %A %H:%M}",
+    "format-alt-click": "click-right",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
     "timezone": "Europe/Moscow",
