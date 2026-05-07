@@ -91,20 +91,19 @@
   "network": {
     "format": "{ifname}",
     "format-ethernet": "󰌘 {ipaddr}",
-    "tooltip-format-ethernet": "{ifname}",
-
     "format-wifi": "󰤨 {ipaddr}",
-    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
-
-    "format-disconnected": "  Disconnected",
+    "format-linked": "󱘖 {ipaddr}",
+    "format-disconnected": " Disconnected",
 
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
-    "format-linked": "󱘖  {ifname} (No IP)",
-
+    "tooltip-format-ethernet": "{ifname} {ipaddr}",
+    "tooltip-format-wifi": "{essid} {ipaddr}",
     "tooltip-format-disconnected": "󰌙 Disconnected",
+
     "max-length": 50,
     "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
     
+    "on-click-right": "bash -c 'IP=$(ip route get 1 | grep -oP \"src \\K\\S+\"); wl-copy \"$IP\" && notify-send \"IP in buffer\" \"$IP\"'",
     "interval": 5
   },
   "group/audio": {
