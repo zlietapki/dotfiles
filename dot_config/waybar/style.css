@@ -126,6 +126,10 @@ window#waybar {
   border-bottom: 3px solid @green;
 }
 
+#pulseaudio.muted:not(.microphone),
+#pulseaudio.source-muted.microphone {
+  text-decoration: line-through;
+}
 #pulseaudio-slider slider {
 	min-width: 0px;
 	min-height: 0px;
