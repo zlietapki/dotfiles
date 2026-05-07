@@ -16,7 +16,7 @@
     "disk"
   ],
   "modules-center": ["hyprland/workspaces#roman"],
-  "modules-right": ["hyprland/language", "tray", "network", "group/audio", "clock"],
+  "modules-right": ["hyprland/language", "tray", "custom/bt-battery", "network", "group/audio", "clock"],
   "custom/cpuhistory": {
     "format": " {}",
     "exec": "~/.config/waybar/scripts/cpu_history.py -d 20",
@@ -81,6 +81,12 @@
   "tray": {
     "icon-size": 20,
     "spacing": 8
+  },
+  "custom/bt-battery": {
+    "exec": "~/.config/waybar/scripts/bt-battery.sh",
+    "interval": 30,
+    "return-type": "json",
+    "format": "{}"
   },
   "network": {
     "format": "{ifname}",
