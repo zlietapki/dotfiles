@@ -1,7 +1,7 @@
 
 {
     "label" : "elem1",
-    "action" : "swaylock -f && systemctl suspend",
+    "action" : "killall wlogout && systemctl suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
