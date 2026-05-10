@@ -10,7 +10,7 @@ listener {
     on-timeout = hyprctl dispatch dpms off # screen off
     on-resume = hyprctl dispatch dpms on # screen on
 }
-{{ else if eq .machine "boomer" }}
+{{ else if eq .machine "boomer" -}}
 # приглушить клавиатуру
 listener {
     timeout = 10 # seconds
