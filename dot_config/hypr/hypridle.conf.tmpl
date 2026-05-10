@@ -31,4 +31,8 @@ listener {
     on-resume = hyprctl dispatch dpms on # screen on
 }
 
+listener {
+    timeout = 1200 # seconds
+    on-timeout = systemctl suspend
+}
 {{ end -}}
