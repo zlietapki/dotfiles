@@ -4,11 +4,17 @@ listener {
 }
 
 {{ if eq .machine "box" -}}
-# приглушить клавиатуру
+# выключить монитор
 listener {
     timeout = 600
     on-timeout = hyprctl dispatch dpms off # screen off
     on-resume = hyprctl dispatch dpms on # screen on
+}
+
+# suspend
+listener {
+    timeout = 1200 # seconds
+    on-timeout = systemctl suspend
 }
 {{ else if eq .machine "boomer" -}}
 # приглушить клавиатуру
@@ -25,12 +31,14 @@ listener {
     on-resume = max=$(brightnessctl -d intel_backlight m); current=$(brightnessctl -d intel_backlight get); [ "$current" -lt "$max" ] && for i in $(seq "$current" 250 "$max"); do brightnessctl -qd intel_backlight set "$i"; done && brightnessctl -qd intel_backlight set "$max"
 }
 
+# выключить монитор
 listener {
     timeout = 600
     on-timeout = hyprctl dispatch dpms off # screen off
     on-resume = hyprctl dispatch dpms on # screen on
 }
 
+# suspend
 listener {
     timeout = 1200 # seconds
     on-timeout = systemctl suspend
