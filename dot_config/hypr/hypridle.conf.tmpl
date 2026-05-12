@@ -13,7 +13,7 @@ listener {
 
 # suspend
 listener {
-    timeout = 6000 # seconds
+    timeout = 6000 # sec
     on-timeout = systemctl suspend
 }
 {{ else if eq .machine "boomer" -}}
