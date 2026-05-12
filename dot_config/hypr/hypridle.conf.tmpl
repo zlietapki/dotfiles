@@ -4,7 +4,7 @@ listener {
 }
 
 {{ if eq .machine "box" -}}
-# выключить монитор
+# monitor off
 listener {
     timeout = 600
     on-timeout = hyprctl dispatch dpms off # screen off
