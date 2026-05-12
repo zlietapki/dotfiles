@@ -17,7 +17,7 @@ listener {
     on-timeout = systemctl suspend
 }
 {{ else if eq .machine "boomer" -}}
-# приглушить клавиатуру
+# keyboard leds off
 listener {
     timeout = 10 # seconds
     on-timeout = brightnessctl -sd '*::kbd_backlight' set 0 # save state and turn off keyboard backlight
