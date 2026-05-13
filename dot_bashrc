@@ -168,3 +168,5 @@ fi
 if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
     . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl k
 fi
+
+alias ssh-trust='f() { ssh-keygen -R "$1" && ssh "$1"; }; f'
