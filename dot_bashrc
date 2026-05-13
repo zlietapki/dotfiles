@@ -170,3 +170,6 @@ if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
 fi
 
 alias ssh-trust='f() { ssh-keygen -R "$1" && ssh "$1"; }; f'
+if [[ -r /usr/share/bash-completion/completions/ssh ]]; then
+    . /usr/share/bash-completion/completions/ssh && complete -F _comp_cmd_ssh ssh-trust
+fi
