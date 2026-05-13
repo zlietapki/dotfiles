@@ -169,7 +169,7 @@ if [[ -r /usr/share/bash-completion/completions/kubectl ]]; then
     . /usr/share/bash-completion/completions/kubectl && complete -o default -F __start_kubectl k
 fi
 
-alias ssh-trust='f() { ssh-keygen -R "$1" && ssh "$1"; }; f'
+alias ssh-trust='f() { local host="${1##*@}"; ssh-keygen -R "$host" && ssh "$1"; }; f'
 if [[ -r /usr/share/bash-completion/completions/ssh ]]; then
     . /usr/share/bash-completion/completions/ssh && complete -F _comp_cmd_ssh ssh-trust
 fi
