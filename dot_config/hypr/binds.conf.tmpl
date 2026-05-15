@@ -183,7 +183,7 @@ bindd = ALT, Print, Copy pixel color, exec, hyprpicker --autocopy --no-fancy
 
 $getProxyPAC = base64 -w0 ~/proxy.pac
 bindd = SUPER, B, Google chrome, exec, uwsm-app -p KillMode=process -- google-chrome-stable --proxy-pac-url='data:application/x-javascript-config;base64,'$($getProxyPAC)
-bindd = SUPER_ALT, B, Brave browser, exec, uwsm-app -- brave --proxy-server="socks5://127.0.0.1:2080"
+bindd = SUPER_ALT, B, Brave browser, exec, uwsm-app -p KillMode=process -- brave --proxy-server="socks5://127.0.0.1:2080"
 bindd = SUPER, T, Lunch foot terminal, exec, uwsm-app -- foot
 bindd = SUPER, I, Window info, exec, hyprctl activewindow -j | uwsm-app -- foot sh -c 'jq --sort-keys --color-output < /proc/$PPID/fd/0 | less --RAW-CONTROL-CHARS'
 bindd = SUPER, tab, Show notifications, exec, uwsm-app -- swaync-client --toggle-panel --skip-wait
