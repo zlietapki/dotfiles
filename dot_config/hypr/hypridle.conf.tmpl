@@ -14,7 +14,7 @@ listener {
 # suspend
 listener {
     timeout = 3600 # sec
-    on-timeout = systemctl suspend
+    on-timeout = ~/.config/hypr/scripts/conditional_suspend.sh 3600
 }
 {{ else if eq .machine "boomer" -}}
 # keyboard leds off
