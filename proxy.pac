@@ -55,7 +55,9 @@ function FindProxyForURL(url, host) {
     if (shExpMatch(url,"*rutrk.org/*")) {
         return "SOCKS 127.0.0.1:2080";
     }
-    
+    if (shExpMatch(url,"*rutor.info/*")) {
+        return "SOCKS 127.0.0.1:2080";
+    }
 
     if (shExpMatch(url,"*alfavpn.ru/*")) {
         return "SOCKS 127.0.0.1:2080";
